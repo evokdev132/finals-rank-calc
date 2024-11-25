@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank Progress Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="header">
+    <button id="toggleSidebar" class="toggle-btn">☰</button>
+    <img src="res/images/logo.png" alt="Logo" class="logo">
+</div>
+
+<div id="historySidebar" class="history-sidebar hidden">
+    <div class="sidebar-header">
+        <h3>Change History</h3>
+    </div>
+    <div id="historyLog" class="history-log">
+    </div>
+</div>
+
+<div class="main-content">
+    <h1>Rank Progress Calculator</h1>
+    <input type="number" id="pointsInput" class="form-control input-group" placeholder="Enter points" oninput="setPoints(this.value)">
+    <p id="rankAndTier" class="mt-3">Rank: - | Tier: -</p>
+    <div class="button-container">
+        <button class="btn btn-custom" onclick="addPoints(6)">+6</button>
+        <button class="btn btn-custom" onclick="addPoints(14)">+14</button>
+        <button class="btn btn-custom" onclick="addPoints(25)">+25</button>
+    </div>
+
+    <div class="columns">
+        <div class="column">
+            <h3>To Next Tier <span id="nextTierName">(N/A)</span> - <span id="nextTierPoints">0 points</span></h3>
+            <p id="tierSecondRound">Second Round: 0 times</p>
+            <p id="tierFinalRound">Final Round: 0 times</p>
+            <p id="tierFinalVictory">Final Victory: 0 times</p>
+        </div>
+        <div class="column">
+            <h3>To Next Rank <span id="nextRankName">(N/A)</span> - <span id="nextRankPoints">0 points</span></h3>
+            <p id="secondRound">Second Round: 0 times</p>
+            <p id="finalRound">Final Round: 0 times</p>
+            <p id="finalVictory">Final Victory: 0 times</p>
+        </div>
+        <div class="column">
+            <h3>To Emerald 1 - <span id="emeraldPoints">2400 points</span></h3>
+            <p id="emeraldSecondRound">Second Round: 0 times</p>
+            <p id="emeraldFinalRound">Final Round: 0 times</p>
+            <p id="emeraldFinalVictory">Final Victory: 0 times</p>
+        </div>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>

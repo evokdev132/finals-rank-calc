@@ -1,0 +1,368 @@
+@font-face {
+    font-family: 'Saira Condensed';
+    src: url('res/fonts/Saira_Condensed-Medium.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    font-family: 'Saira Condensed', sans-serif;
+    background-color: #1D1A20;
+    color: #F1F2F4;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    background-color: #29272B;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.header .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 50px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #F1F2F4;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.history-sidebar {
+    width: 20%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #29272B;
+    border-right: 2px solid #444;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+}
+
+.history-sidebar.visible {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    align-items: center;
+}
+
+.history-log {
+    padding: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.history-entry {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #444;
+}
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+    text-align: center;
+}
+
+input#pointsInput {
+    width: 10ch;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 5px;
+    margin: 20px 0;
+    font-family: 'Saira Condensed', sans-serif;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button.btn-custom {
+    background-color: #444;
+    color: #F1F2F4;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button.btn-custom:hover {
+    background-color: #555;
+}
+
+.columns {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.column {
+    width: 30%;
+    text-align: center;
+}
+
+.header {
+    background-color: #29272B;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.header .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    max-height: 50px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #F1F2F4;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.history-sidebar.visible {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    align-items: center;
+}
+
+.history-log {
+    padding: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.history-entry {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #444;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+input#pointsInput {
+    width: 10ch;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 5px;
+    margin: 20px 0;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button.btn-custom {
+    background-color: #444;
+    color: #F1F2F4;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button.btn-custom:hover {
+    background-color: #555;
+}
+
+body {
+    margin: 0;
+    font-family: 'Saira Condensed', sans-serif;
+    background-color: #1D1A20;
+    color: #F1F2F4;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.header {
+    background-color: #29272B;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 2px solid #444;
+}
+
+.header img {
+    max-height: 50px;
+}
+
+.history-sidebar.visible {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #F1F2F4;
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.history-log {
+    padding: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.history-entry {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #444;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+input#pointsInput {
+    width: 10ch;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 5px;
+    margin: 20px 0;
+}
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button.btn-custom {
+    background-color: #444;
+    color: #F1F2F4;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+button.btn-custom:hover {
+    background-color: #555;
+}
+
+.columns {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.column {
+    width: 30%;
+    text-align: center;
+}
+
+.header {
+    background-color: #29272B;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #444;
+}
+
+.header img {
+    max-height: 50px;
+}
+
+.toggle-btn {
+    background: none;
+    border: none;
+    color: #F1F2F4;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    margin-left: auto; /* Ensure it aligns to the right */
+}
+
+.history-sidebar.visible {
+    transform: translateX(0);
+}
+
+.sidebar-header {
+    padding: 10px;
+    border-bottom: 1px solid #444;
+    display: flex;
+    align-items: center;
+}
+
+.history-log {
+    padding: 10px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.history-entry {
+    margin-bottom: 10px;
+    padding: 5px;
+    border-bottom: 1px solid #444;
+}
+
+h1 {
+    margin: 0;
+    font-size: 2rem;
+}
