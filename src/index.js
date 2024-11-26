@@ -3,11 +3,12 @@ import {
     sidebarElement,
     pointsInputElement,
     secondRoundAddButtonElement,
-    finalRoundAddButtonElement, finalWinAddButtonElement
+    finalRoundAddButtonElement,
+    finalWinAddButtonElement
 } from "./consts.js";
 import {loadHistory} from "./history.js";
-import {addPoints, renderCalculations} from "./logic.js";
-import {createRatingChart, createWeeklyRatingChart, updateChart, updateWeeklyChart} from "./graph.js";
+import {addPoints, renderCalculations, setPoints} from "./logic.js";
+import {createWeeklyRatingChart} from "./graph.js";
 
 export function initializeDom() {
     window.onload = function () {
@@ -25,9 +26,13 @@ export function initializeDom() {
             renderCalculations();
         }
 
-        createRatingChart();
+        // createRatingChart();
         createWeeklyRatingChart();
     };
+
+    pointsInputElement.addEventListener('input', (data) => {
+        setPoints(data);
+    })
 
     toggleSidebarBtnElement.addEventListener('click', () => {
         const isHidden = sidebarElement.classList.toggle('hidden');

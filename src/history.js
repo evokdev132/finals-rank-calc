@@ -7,7 +7,7 @@ export function saveHistory(pointsAdded) {
     const entry = `${formattedDate} ${formattedTime} +${pointsAdded}`;
 
     const history = JSON.parse(localStorage.getItem('historyLog')) || [];
-    history.unshift(entry);
+    history.push(entry);
     localStorage.setItem('historyLog', JSON.stringify(history));
 
     loadHistory();
@@ -17,7 +17,7 @@ export function loadHistory() {
     const history = JSON.parse(localStorage.getItem('historyLog')) || [];
     historyLogElement.innerHTML = ''; // Clear existing entries
 
-    history.forEach(entry => {
+    history.reverse().forEach(entry => {
         const historyEntry = document.createElement('div');
         historyEntry.className = 'history-entry';
         historyEntry.textContent = entry;

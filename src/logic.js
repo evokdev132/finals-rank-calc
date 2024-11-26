@@ -68,7 +68,7 @@ export function addPoints(points) {
 
     saveHistory(points);
     renderCalculations();
-    updateChart();
+    // updateChart();
     updateWeeklyChart()
 }
 
@@ -77,7 +77,7 @@ export function setPoints(value) {
     localStorage.setItem('rankPoints', points);
 
     renderCalculations();
-    updateChart();
+    // updateChart();
     updateWeeklyChart()
 }
 

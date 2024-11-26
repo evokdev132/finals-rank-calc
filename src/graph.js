@@ -1,4 +1,4 @@
-import {ratingChartElement, weeklyRatingChartElement} from "./consts.js";
+import {pointsInputElement, ratingChartElement, weeklyRatingChartElement} from "./consts.js";
 
 export let ratingChart;
 export let weeklyRatingChart;
@@ -62,6 +62,7 @@ export function createWeeklyRatingChart() {
                 label: 'Weekly Rating Changes',
                 data: [], // Y-axis data, updated dynamically
                 borderColor: '#FFCC00',
+                stepped: true,
                 backgroundColor: 'rgba(255, 204, 0, 0.2)',
                 tension: 0.4, // Smooth line
             }],
@@ -103,7 +104,7 @@ export function createWeeklyRatingChart() {
 
 export function updateChart() {
     const history = JSON.parse(localStorage.getItem('historyLog')) || [];
-    const recentHistory = history.slice(0, 30).reverse();
+    const recentHistory = history.slice(0, 10).reverse();
 
     const labels = recentHistory.map(entry => {
         const [date, time] = entry.split(' ');
@@ -143,25 +144,53 @@ export function updateWeeklyChart() {
             dailyChanges[date] = (dailyChanges[date] || 0) + changeValue;
         }
     });
+    console.log(history)
+    console.log(dailyChanges)
 
-    const labels = [];
-    const data = [];
-    let cumulativeRating = parseInt(pointsInput.value || 0);
+    let cumulativeRating = parseInt(pointsInputElement.value || 0);
+    const labels = [new Date().toLocaleDateString('en-GB')];
+    const data = [cumulativeRating];
 
-    for (let i = 6; i >= 0; i--) {
+    for (let i = 5; i >= 0; i--) {
         const day = new Date();
         day.setDate(today.getDate() - i);
 
         const dayLabel = day.toLocaleDateString('en-GB');
         labels.push(dayLabel);
-
         cumulativeRating -= dailyChanges[dayLabel] || 0;
         data.push(cumulativeRating);
     }
 
     if (weeklyRatingChart) {
+        console.log(data)
         weeklyRatingChart.data.labels = labels;
-        weeklyRatingChart.data.datasets[0].data = data;
+        weeklyRatingChart.data.datasets[0].data = data.reverse();
         weeklyRatingChart.update();
     }
+}
+
+function calculateData(history) {
+    const currentDate = new Date();
+    const limitDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 8)
+    const chartData = {
+        labels: [],
+        data: []
+    };
+    const parsedData = {};
+    let cumulative = 0;
+
+
+    history.reverse().forEach(entry => {
+        const {date, time, points} = entry.split(' ');
+        const parsedDate = parseGbString(date);
+        if (parsedDate > limitDate) {
+
+        }
+    })
+
+}
+
+function parseGbString(stringDate) {
+    const [day, month, year] = stringDate.split('/').map(Number);
+    return new Date(year, month - 1, day);
 }
