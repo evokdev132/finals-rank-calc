@@ -10,9 +10,11 @@ import {addPoints, renderCalculations} from "./logic.js";
 
 export function initializeDom() {
     window.onload = function () {
-        const sidebarState = localStorage.getItem('sidebarState');
-        if (sidebarState === 'visible') {
-            sidebarElement.classList.add('visible');
+        const savedSidebarState = localStorage.getItem('sidebarState');
+        if (savedSidebarState === 'hidden') {
+            sidebarElement.classList.add('hidden');
+        } else {
+            sidebarElement.classList.remove('hidden');
         }
         loadHistory();
 
@@ -24,8 +26,8 @@ export function initializeDom() {
     };
 
     toggleSidebarBtnElement.addEventListener('click', () => {
-        const isVisible = sidebarElement.classList.toggle('visible');
-        localStorage.setItem('sidebarState', isVisible ? 'visible' : 'hidden');
+        const isHidden = sidebarElement.classList.toggle('hidden');
+        localStorage.setItem('sidebarState', isHidden ? 'hidden' : 'visible');
     });
 
     secondRoundAddButtonElement.addEventListener('click', () => {
