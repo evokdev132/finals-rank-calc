@@ -7,6 +7,7 @@ import {
 } from "./consts.js";
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations} from "./logic.js";
+import {createRatingChart, createWeeklyRatingChart, updateChart, updateWeeklyChart} from "./graph.js";
 
 export function initializeDom() {
     window.onload = function () {
@@ -23,6 +24,9 @@ export function initializeDom() {
             pointsInputElement.value = savedPoints;
             renderCalculations();
         }
+
+        createRatingChart();
+        createWeeklyRatingChart();
     };
 
     toggleSidebarBtnElement.addEventListener('click', () => {

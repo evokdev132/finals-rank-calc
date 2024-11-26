@@ -59,6 +59,10 @@ export const emeraldFinalRoundElement = document.getElementById('emeraldFinalRou
 export const emeraldFinalVictoryElement = document.getElementById('emeraldFinalVictory');
 
 // Buttons
-export const secondRoundAddButtonElement = document.getElementById('secondRoundAddButton')
-export const finalRoundAddButtonElement = document.getElementById('finalRoundAddButton')
-export const finalWinAddButtonElement = document.getElementById('finalWinAddButton')
+export const secondRoundAddButtonElement = document.getElementById('secondRoundAddButton');
+export const finalRoundAddButtonElement = document.getElementById('finalRoundAddButton');
+export const finalWinAddButtonElement = document.getElementById('finalWinAddButton');
+
+//Charts
+export const ratingChartElement = document.getElementById('ratingChart');
+export const weeklyRatingChartElement = document.getElementById('weeklyRatingChart')

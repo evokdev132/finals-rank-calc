@@ -53,11 +53,16 @@
     </div>
 
     <div class="right-sidebar">
-        <h3>Right Sidebar</h3>
-        <p>Additional information can go here.</p>
+        <h3>Stats</h3>
+        <div class="chart-container">
+            <canvas id="ratingChart"></canvas>
+        </div>
+        <div class="chart-container">
+            <canvas id="weeklyRatingChart"></canvas>
+        </div>
     </div>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="module" src="src/index.js"></script>
 <script type="module" src="src/consts.js"></script>
 <script type="module" src="src/logic.js"></script>
