@@ -5,9 +5,9 @@
 
 .container {
     display: flex;
+    flex-direction: c;
     height: 100vh;
     overflow: hidden;
-    transition: all 0.3s ease;
 }
 
 .history-sidebar {
@@ -42,25 +42,26 @@
     align-items: center;
     justify-content: center;
     padding: 20px;
-    overflow-y: auto;
     background-color: #1D1A20;
     color: #F1F2F4;
-    transition: all 0.3s ease;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
-    max-width: 800px;
+    max-width: 80%;
+    overflow: hidden;
+    height: auto;
 }
 
 
 .right-sidebar {
-    flex: 0 0 30%;
+    flex: 0 0 40%;
     background-color: #1D1A20;
     overflow-y: auto;
     height: 100%;
-    width: 30%;
+    width: 80%;
     padding: 20px;
-    transition: flex 0.3s ease;
+    margin-left: auto;
+    margin-right: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -128,6 +129,16 @@ button.btn-custom {
 button.btn-custom:hover {
     background-color: #555;
 }
+.content-container {
+    display: flex; /* Включаем Flexbox */
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
 
 .columns {
     display: flex;
@@ -157,16 +168,6 @@ button.btn-custom:hover {
     left: 50%;
     transform: translateX(-50%);
     max-height: 50px;
-}
-
-.toggle-btn {
-    background: none;
-    border: none;
-    color: #F1F2F4;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 5px 10px;
-    margin-left: auto;
 }
 
 .history-log {
@@ -199,8 +200,10 @@ body {
     max-height: 50px;
 }
 .chart-container {
+    justify-content: center;
+    overflow-y: hidden;
     width: 100%;
-    height: 25%;
+    height: 100%;
 }
 
 /* Canvas Styling */
