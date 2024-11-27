@@ -1,5 +1,4 @@
 import {
-    toggleSidebarBtnElement,
     sidebarElement,
     pointsInputElement,
     secondRoundAddButtonElement,
@@ -13,12 +12,6 @@ import {getCurrentPoints} from "./localStorage.service.js";
 
 export function initializeDom() {
     window.onload = function () {
-        const savedSidebarState = localStorage.getItem('sidebarState');
-        if (savedSidebarState === 'hidden') {
-            sidebarElement.classList.add('hidden');
-        } else {
-            sidebarElement.classList.remove('hidden');
-        }
         loadHistory();
 
         const savedPoints = getCurrentPoints();
@@ -27,18 +20,12 @@ export function initializeDom() {
             renderCalculations();
         }
 
-        // createRatingChart();
         createWeeklyRatingChart();
     };
 
     pointsInputElement.addEventListener('input', (data) => {
         setPoints(data);
     })
-
-    toggleSidebarBtnElement.addEventListener('click', () => {
-        const isHidden = sidebarElement.classList.toggle('hidden');
-        localStorage.setItem('sidebarState', isHidden ? 'hidden' : 'visible');
-    });
 
     secondRoundAddButtonElement.addEventListener('click', () => {
         addPoints(6);

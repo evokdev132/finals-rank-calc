@@ -39,7 +39,6 @@ export const ranks = [
 
 //Elements
 export const sidebarElement = document.getElementById('historySidebar');
-export const toggleSidebarBtnElement = document.getElementById('toggleSidebar');
 export const historyLogElement = document.getElementById('historyLog');
 export const pointsInputElement = document.getElementById('pointsInput');
 export const rankAndTierElement = document.getElementById('rankAndTier');

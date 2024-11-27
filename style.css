@@ -15,23 +15,16 @@
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #29272B;
+    background-color: #1D1A20;
     border-right: 2px solid #444;
     display: flex;
     flex-direction: column;
-    transform: translateX(0);
     flex: 0 0 20%;
     overflow-y: auto;
-    border-right: 2px solid #444;
     z-index: 1000;
     position: relative;
-    transition: flex 0.3s ease, transform 0.3s ease;
-}
-
-.history-sidebar.hidden {
-    flex: 0 0 0;
-    transform: translateX(-100%);
-    border-right: none;
+    scrollbar-color: #F1F2F4 #1D1A20;
+    scrollbar-width: thin;
 }
 
 .sidebar-header {
@@ -84,8 +77,6 @@
         position: absolute;
         z-index: 1000;
         height: 100vh;
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
     }
 
     .history-sidebar.hidden {
@@ -153,9 +144,12 @@ button.btn-custom:hover {
 .header {
     background-color: #29272B;
     padding: 10px 20px;
+    min-height: 5vh;
     display: flex;
     align-items: center;
     position: relative;
+    justify-content: center;
+    border-bottom: 2px solid #444;
 }
 
 .header .logo {
@@ -195,15 +189,6 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
-}
-
-.header {
-    background-color: #29272B;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-bottom: 2px solid #444;
 }
 
 .header img {

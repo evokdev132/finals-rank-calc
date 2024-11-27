@@ -17,7 +17,7 @@ import {
     ranks
 } from "./consts.js";
 import {saveHistory} from "./history.js";
-import {updateChart, updateWeeklyChart} from "./graph.js";
+import {updateWeeklyChart} from "./graph.js";
 import {saveCurrentPoints} from "./localStorage.service.js";
 
 export function renderCalculations() {
