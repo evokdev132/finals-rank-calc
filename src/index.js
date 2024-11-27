@@ -9,6 +9,7 @@ import {
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
 import {createWeeklyRatingChart} from "./graph.js";
+import {getCurrentPoints} from "./localStorage.service.js";
 
 export function initializeDom() {
     window.onload = function () {
@@ -20,7 +21,7 @@ export function initializeDom() {
         }
         loadHistory();
 
-        const savedPoints = localStorage.getItem('rankPoints');
+        const savedPoints = getCurrentPoints();
         if (savedPoints) {
             pointsInputElement.value = savedPoints;
             renderCalculations();
