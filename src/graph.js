@@ -13,7 +13,7 @@ export function createWeeklyRatingChart() {
                 label: 'Weekly Rating Changes',
                 data: [], // Y-axis data, updated dynamically
                 borderColor: '#FFCC00',
-                stepped: true,
+                // stepped: true,
                 backgroundColor: 'rgba(255, 204, 0, 0.2)',
                 tension: 0.4, // Smooth line
             }],
