@@ -163,6 +163,18 @@ button.btn-custom:hover {
     border-bottom: 2px solid #444;
 }
 
+.footer {
+    background-color: #29272B;
+    font-size: xx-small;
+    padding: 10px 20px;
+    min-height: 1vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+    border-bottom: 2px solid #444;
+}
+
 .header .logo {
     position: absolute;
     left: 50%;
