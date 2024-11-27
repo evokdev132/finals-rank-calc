@@ -1,0 +1,9 @@
+Copyright (c) 2022-2024 Embark Studios AB.
+
+The logo and fonts included in this repository are the property of Embark Studios AB.
+
+These assets are provided for non-commercial use only, as part of this application for personal or educational purposes.
+Any commercial use, redistribution, or modification of these assets is strictly prohibited without explicit permission
+from Embark Studios AB.
+
+For further inquiries regarding the use of these assets, please contact Embark Studios AB.
