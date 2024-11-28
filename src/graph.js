@@ -89,7 +89,7 @@ function compilePointsGain(datePoints, history) {
     const pointsGain = {[currentDate]: history[historyIndex].currentPoints}
 
     while (currentDate >= datePoints[0]) {
-        if (new Date(history[historyIndex].date) > currentDate) {
+        if (new Date(history[historyIndex].date) > currentDate && historyIndex > 0) {
             historyIndex--;
         } else {
             pointsGain[datePoints[--dateIndex]] = history[historyIndex].currentPoints;
