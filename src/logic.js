@@ -76,6 +76,7 @@ export function addPoints(points) {
 export function setPoints(value) {
     const points = Number.parseInt(value);
     LocalStorageService.saveCurrentPoints(points);
+    DataService.saveToHistory(0, value);
     renderCalculations();
     DataService.saveToHistory(0, value);
     loadHistory();

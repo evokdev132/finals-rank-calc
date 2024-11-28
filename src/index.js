@@ -12,6 +12,9 @@ import {DataService} from "./data.service.js";
 
 export function initializeDom() {
     window.onload = function () {
+        DataService.initHistory();
+        loadHistory();
+
         const savedPoints = LocalStorageService.getCurrentPoints();
         if (savedPoints) {
             pointsInputElement.value = savedPoints;
