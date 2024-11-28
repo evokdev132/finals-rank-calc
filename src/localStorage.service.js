@@ -1,26 +1,46 @@
-const CURRENT_POINTS = 'rankPoints';
+export class LocalStorageService {
+    static CURRENT_POINTS = 'rankPoints';
+    static DEPRECATED_HISTORY = 'historyLog';
+    static CURRENT_HISTORY = 'history';
 
-export function getCurrentPoints() {
-    return getInt(CURRENT_POINTS)
-}
+    static getCurrentPoints() {
+        return LocalStorageService.#getInt(LocalStorageService.CURRENT_POINTS)
+    }
 
-export function saveCurrentPoints(points) {
-    setInt(CURRENT_POINTS, points);
-}
+    static saveCurrentPoints(points) {
+        LocalStorageService.#setInt(LocalStorageService.CURRENT_POINTS, points);
+    }
 
-function setInt(key, value) {
-    localStorage.setItem(key, `${value}`)
-}
+    static getHistory() {
+        return LocalStorageService.#getArray(LocalStorageService.CURRENT_HISTORY);
+    }
 
-function getInt(key) {
-    return Number.parseInt(localStorage.getItem(key))
-}
+    static saveHistory(history) {
+        LocalStorageService.#setArray(LocalStorageService.CURRENT_HISTORY, history);
+    }
 
+    static #setInt(key, value) {
+        localStorage.setItem(key, `${value}`)
+    }
 
-function setString(key, value) {
-    localStorage.setItem(key, `${value}`)
-}
+    static #getInt(key) {
+        return Number.parseInt(localStorage.getItem(key))
+    }
 
-function getString(key) {
-    return `${localStorage.getItem(key)}`
+    static #setString(key, value) {
+        localStorage.setItem(key, `${value}`)
+    }
+
+    static #getString(key) {
+        return `${localStorage.getItem(key)}`
+    }
+
+    static #setArray(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    static #getArray(key) {
+        const item = localStorage.getItem(key);
+        return item ? JSON.parse(localStorage.getItem(key)) : null;
+    }
 }

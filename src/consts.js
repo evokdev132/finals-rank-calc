@@ -1,3 +1,4 @@
+// JS const
 export const ranks = [
     {
         name: 'Bronze',
@@ -36,6 +37,8 @@ export const ranks = [
         maxPoints: 2400,
     },
 ];
+export const currentSeason = 4;
+export const supportedSeasons = [4 ,5];
 
 //Elements
 export const sidebarElement = document.getElementById('historySidebar');

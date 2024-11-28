@@ -5,13 +5,11 @@
 
 .container {
     display: flex;
-    flex-direction: c;
     height: 100vh;
     overflow: hidden;
 }
 
 .history-sidebar {
-    width: 20%;
     height: 100%;
     top: 0;
     left: 0;
@@ -19,7 +17,7 @@
     border-right: 2px solid #444;
     display: flex;
     flex-direction: column;
-    flex: 0 0 20%;
+    flex: 0 0 10%;
     overflow-y: auto;
     z-index: 1000;
     position: relative;
@@ -78,10 +76,6 @@
         position: absolute;
         z-index: 1000;
         height: 100vh;
-    }
-
-    .history-sidebar.hidden {
-        transform: translateX(-100%);
     }
 
     .main-content,

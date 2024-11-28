@@ -1,5 +1,4 @@
 import {
-    sidebarElement,
     pointsInputElement,
     secondRoundAddButtonElement,
     finalRoundAddButtonElement,
@@ -8,13 +7,15 @@ import {
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
 import {createWeeklyRatingChart} from "./graph.js";
-import {getCurrentPoints} from "./localStorage.service.js";
+import {LocalStorageService} from "./localStorage.service.js";
+import {DataService} from "./data.service.js";
 
 export function initializeDom() {
     window.onload = function () {
+        DataService.initHistory();
         loadHistory();
 
-        const savedPoints = getCurrentPoints();
+        const savedPoints = LocalStorageService.getCurrentPoints();
         if (savedPoints) {
             pointsInputElement.value = savedPoints;
             renderCalculations();
