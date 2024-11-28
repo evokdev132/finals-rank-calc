@@ -1,5 +1,6 @@
 import {weeklyRatingChartElement} from "./consts.js";
-import {getCurrentPoints} from "./localStorage.service.js";
+import {DataService} from "./data.service.js";
+import {formatToDate} from "./date.util.js";
 
 export let weeklyRatingChart;
 
@@ -8,14 +9,13 @@ export function createWeeklyRatingChart() {
     weeklyRatingChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: [], // X-axis labels, updated dynamically
+            labels: [],
             datasets: [{
-                label: 'Weekly Rating Changes',
-                data: [], // Y-axis data, updated dynamically
+                label: 'Points',
+                data: [],
                 borderColor: '#FFCC00',
-                // stepped: true,
                 backgroundColor: 'rgba(255, 204, 0, 0.2)',
-                tension: 0.4, // Smooth line
+                tension: 0, // Smooth line
             }],
         },
         options: {
@@ -23,7 +23,7 @@ export function createWeeklyRatingChart() {
             maintainAspectRatio: false,
             plugins: {
                 legend: {
-                    display: false, // Hide the legend
+                    display: false,
                 },
             },
             scales: {
@@ -54,97 +54,47 @@ export function createWeeklyRatingChart() {
 }
 
 export function updateWeeklyChart() {
-    const history = JSON.parse(localStorage.getItem('historyLog')) || [];
-    const today = new Date();
-    const sevenDaysAgo = new Date();
-    sevenDaysAgo.setDate(today.getDate() - 7);
-
-    const dailyChanges = {};
-    history.forEach(entry => {
-        const parts = entry.split(' ');
-        const date = parts[0];
-        const change = parts[2];
-        const changeValue = parseInt(change.replace('+', ''), 10);
-
-        const [day, month, year] = date.split('/').map(Number);
-        const entryDate = new Date(year, month - 1, day);
-        if (entryDate >= sevenDaysAgo) {
-            dailyChanges[date] = (dailyChanges[date] || 0) + changeValue;
-        }
-    });
-    const chartData = calculateData(history);
+    const chartData = compileWeeklyData()
     if (weeklyRatingChart) {
-        weeklyRatingChart.data.labels = chartData.labels.reverse();
-        weeklyRatingChart.data.datasets[0].data = chartData.data.reverse();
+        weeklyRatingChart.data.labels = chartData.labels;
+        weeklyRatingChart.data.datasets[0].data = chartData.data;
         weeklyRatingChart.update();
     }
 }
 
-// gl understanding it
-function calculateData(history) {
-    const currentDate = new Date();
-    const limitDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 8)
+function compileWeeklyData() {
+    const history = DataService.retrieveHistory();
+    const datePoints = [];
     const chartData = {
-        labels: getLabels(),
+        labels: [],
         data: []
     };
-    const currentPoints = getCurrentPoints();
-    const parsedData = {};
-
-    history.reverse().forEach(entry => {
-        const [date, time, points] = entry.split(' ');
-        const parsedStringDate = parseGbString(date);
-        if (parsedStringDate > limitDate) {
-            addEntryToArray(date, Number.parseInt(points), parsedData);
-        }
-    });
-    const compiledChanges = chartData.labels.map(label => {
-        if (parsedData[label]) {
-            return parsedData[label].reduce((sum, element) => sum + element, 0)
-        } else {
-            return 0;
-        }
-    })
-    compiledChanges.unshift(0);
-    chartData.data = compiledChanges.reduce((result, change, index) => {
-        const previousValue = index === 0 ? currentPoints : result[index - 1];
-        result.push(previousValue - change);
-        return result;
-    }, []);
-    chartData.data.pop();
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+    for (let i = 7; i > 0; i--) {
+        const newDate = new Date(todayDate); // Копируем объект todayDate
+        newDate.setDate(todayDate.getDate() - i + 1); // Уменьшаем дату
+        datePoints.push(newDate);
+    }
+    const pointsGain = compilePointsGain(datePoints, history);
+    chartData.labels = datePoints.map(point => formatToDate(point));
+    chartData.data = datePoints.map(label => pointsGain[new Date(label)])
     return chartData;
 }
 
-function parseGbString(stringDate) {
-    const [day, month, year] = stringDate.split('/').map(Number);
-    return new Date(year, month - 1, day);
-}
+function compilePointsGain(datePoints, history) {
+    let dateIndex = datePoints.length - 1;
+    let historyIndex = history.length - 1;
+    let currentDate = datePoints[dateIndex];
+    const pointsGain = {[currentDate]: history[historyIndex].currentPoints}
 
-function addEntryToArray(key, value, object) {
-    if (object[key]) {
-        object[key].push(value);
-    } else {
-        object[key] = [value];
-    }
-}
-
-function getLabels(interval = 'week') {
-    if (interval === 'week') {
-        const dates = [];
-        const today = new Date();
-
-        for (let i = 0; i < 7; i++) {
-            const pastDate = new Date(today);
-            pastDate.setDate(today.getDate() - i);
-
-            const day = String(pastDate.getDate()).padStart(2, '0');
-            const month = String(pastDate.getMonth() + 1).padStart(2, '0');
-            const year = String(pastDate.getFullYear());
-
-            dates.push(`${day}/${month}/${year}`);
+    while (currentDate >= datePoints[0]) {
+        if (new Date(history[historyIndex].date) > currentDate) {
+            historyIndex--;
+        } else {
+            pointsGain[datePoints[--dateIndex]] = history[historyIndex].currentPoints;
+            currentDate = datePoints[dateIndex];
         }
-
-        return dates;
     }
-    return [];
+    return pointsGain;
 }

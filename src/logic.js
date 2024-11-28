@@ -14,15 +14,15 @@ import {
     emeraldSecondRoundElement,
     emeraldFinalRoundElement,
     emeraldFinalVictoryElement,
-    ranks
+    ranks, pointsInputElement
 } from "./consts.js";
-import {saveHistory} from "./history.js";
 import {updateWeeklyChart} from "./graph.js";
-import {saveCurrentPoints} from "./localStorage.service.js";
+import {LocalStorageService} from "./localStorage.service.js";
+import {DataService} from "./data.service.js";
 
 export function renderCalculations() {
-    const points = parseInt(pointsInput.value || 0);
-    saveCurrentPoints(points);
+    const points = parseInt(pointsInputElement.value) || 0;
+    LocalStorageService.saveCurrentPoints(points);
 
     const {
         rank,
@@ -62,23 +62,22 @@ export function renderCalculations() {
 }
 
 export function addPoints(points) {
-    const currentPoints = parseInt(pointsInput.value || 0);
+    const currentPoints = parseInt(pointsInputElement.value || 0);
     const newPoints = currentPoints + points;
-    pointsInput.value = newPoints;
-    saveCurrentPoints(newPoints);
+    pointsInputElement.value = newPoints;
+    LocalStorageService.saveCurrentPoints(newPoints);
+    DataService.saveToHistory(points, newPoints);
 
-    saveHistory(points);
     renderCalculations();
-    // updateChart();
     updateWeeklyChart()
 }
 
 export function setPoints(value) {
     const points = Number.parseInt(value);
-    saveCurrentPoints(points);
+    LocalStorageService.saveCurrentPoints(points);
+    DataService.saveToHistory(0, value);
 
     renderCalculations();
-    // updateChart();
     updateWeeklyChart()
 }
 
