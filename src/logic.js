@@ -19,10 +19,10 @@ import {
 import {updateWeeklyChart} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
+import {loadHistory} from "./history.js";
 
 export function renderCalculations() {
-    const points = parseInt(pointsInputElement.value) || 0;
-    LocalStorageService.saveCurrentPoints(points);
+    const points = LocalStorageService.getCurrentPoints();
 
     const {
         rank,
@@ -65,19 +65,21 @@ export function addPoints(points) {
     const currentPoints = parseInt(pointsInputElement.value || 0);
     const newPoints = currentPoints + points;
     pointsInputElement.value = newPoints;
+    renderCalculations();
     LocalStorageService.saveCurrentPoints(newPoints);
     DataService.saveToHistory(points, newPoints);
+    loadHistory();
 
-    renderCalculations();
     updateWeeklyChart()
 }
 
 export function setPoints(value) {
     const points = Number.parseInt(value);
     LocalStorageService.saveCurrentPoints(points);
-    DataService.saveToHistory(0, value);
-
     renderCalculations();
+    DataService.saveToHistory(0, value);
+    loadHistory();
+
     updateWeeklyChart()
 }
 
