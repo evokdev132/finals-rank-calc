@@ -2,11 +2,14 @@ import {
     pointsInputElement,
     secondRoundAddButtonElement,
     finalRoundAddButtonElement,
-    finalWinAddButtonElement
+    finalWinAddButtonElement,
+    weekChartButtonElement,
+    monthChartButtonElement,
+    allTimeChartButtonElement
 } from "./consts.js";
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
-import {createWeeklyRatingChart} from "./graph.js";
+import {GraphClass} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
 
@@ -21,10 +24,12 @@ export function initializeDom() {
             renderCalculations();
         }
 
-        DataService.initHistory();
-        loadHistory();
+        const graphMode = LocalStorageService.getGraphMode();
+        if (!graphMode) {
+            LocalStorageService.saveGraphMode(GraphClass.CHART_OPTIONS.week)
+        }
 
-        createWeeklyRatingChart();
+        GraphClass.createChart();
     };
 
     pointsInputElement.addEventListener('input', (data) => {
@@ -39,6 +44,16 @@ export function initializeDom() {
     })
     finalWinAddButtonElement.addEventListener('click', () => {
         addPoints(25);
+    })
+
+    weekChartButtonElement.addEventListener('click', () => {
+        GraphClass.setChartMode(GraphClass.CHART_OPTIONS.week)
+    })
+    monthChartButtonElement.addEventListener('click', () => {
+        GraphClass.setChartMode(GraphClass.CHART_OPTIONS.month)
+    })
+    allTimeChartButtonElement.addEventListener('click', () => {
+        GraphClass.setChartMode(GraphClass.CHART_OPTIONS.allTime)
     })
 }
 
