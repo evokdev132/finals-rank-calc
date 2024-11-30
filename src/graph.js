@@ -22,7 +22,7 @@ export class GraphClass {
                 datasets: [{
                     label: 'Points',
                     data: [],
-                    borderColor: '#FFCC00',
+                    borderColor: '#F7BB2B',
                     backgroundColor: 'rgba(255, 204, 0, 0.2)',
                     tension: 0, // Smooth line
                 }],

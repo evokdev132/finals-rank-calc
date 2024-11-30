@@ -67,24 +67,40 @@
     text-align: center;
 }
 
+@media (max-width: 1800px) {
+    .history-sidebar {
+        flex: 0 0 20%;
+    }
+
+    .content-container {
+        height: 100vh;
+    }
+}
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
+        overflow-y: auto;
+        justify-content: flex-start;
+        align-items: stretch;
     }
 
     .history-sidebar {
-        position: absolute;
-        z-index: 1000;
-        height: 100vh;
+        display: none;
+
     }
 
     .main-content,
     .right-sidebar {
         flex: 1 1 auto;
+        max-width: 100%;
+    }
+
+    .right-sidebar {
+        height: 40vh;
     }
 
     .chart-container {
-        height: 100vh;
+        height: 5vh;
     }
 }
 
@@ -110,8 +126,11 @@ input#pointsInput {
 }
 
 button.btn-custom {
-    background-color: #444;
-    color: #F1F2F4;
+    /*background-color: #444;*/
+    /*background-color: #D21F3C;*/
+    background-color: #F7BB2B;
+    /*color: #F1F2F4;*/
+    color: #000000;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -132,7 +151,7 @@ button.s-btn-custom {
 }
 
 button.btn-custom:hover {
-    background-color: #555;
+    background-color: #fda708;
 }
 button.s-btn-custom:hover {
     background-color: #555;
@@ -161,18 +180,16 @@ button.s-btn-custom:hover {
 }
 
 .header {
-    background-color: #29272B;
-    padding: 10px 20px;
-    min-height: 5vh;
+    background-color: #000000;
+    padding: 10px 20px 10px 30px;
     display: flex;
-    align-items: center;
     position: relative;
-    justify-content: center;
+    justify-content: left;
     border-bottom: 2px solid #444;
 }
 
 .footer {
-    background-color: #29272B;
+    background-color: #000000;
     font-size: xx-small;
     padding: 10px 20px;
     min-height: 1vh;
@@ -184,10 +201,7 @@ button.s-btn-custom:hover {
 }
 
 .header .logo {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    max-height: 50px;
+    max-width: 20vh;
 }
 
 .history-log {
