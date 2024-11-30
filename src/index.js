@@ -14,6 +14,10 @@ import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
 
 export function initializeDom() {
+
+
+    let typingTimer;
+    const typingDelay = 1000;
     window.onload = function () {
         DataService.initHistory();
         loadHistory();
@@ -32,9 +36,18 @@ export function initializeDom() {
         GraphClass.createChart();
     };
 
-    pointsInputElement.addEventListener('input', (data) => {
-        setPoints(data);
-    })
+
+    pointsInputElement.addEventListener('input', () => {
+        clearTimeout(typingTimer);
+        typingTimer = setTimeout(() => {
+            setPoints(pointsInputElement.value)
+        }, typingDelay);
+    });
+
+    pointsInputElement.addEventListener('keydown', () => {
+        clearTimeout(typingTimer);
+    });
+
 
     secondRoundAddButtonElement.addEventListener('click', () => {
         addPoints(6);
