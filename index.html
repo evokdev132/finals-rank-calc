@@ -22,8 +22,7 @@
     <div class="content-container">
         <div class="main-content">
             <h1>Rank Progress Calculator</h1>
-            <input type="number" id="pointsInput" class="form-control input-group" placeholder="Enter points"
-                   oninput="setPoints(this.value)">
+            <input type="number" id="pointsInput" class="form-control input-group" placeholder="Enter points">
             <p id="rankAndTier" class="mt-3">Rank: - | Tier: -</p>
             <div class="button-container">
                 <button id="secondRoundAddButton" class="btn btn-custom">+6</button>
@@ -58,7 +57,13 @@
         <div class="right-sidebar">
             <h3>Stats</h3>
             <div class="chart-container">
-                <canvas id="weeklyRatingChart"></canvas>
+                <canvas id="ratingChart"></canvas>
+            </div>
+            <p id="chartModes" class="mt-3">Chart modes</p>
+            <div class="button-container">
+                <button id="weekChartButton" class="btn s-btn-custom">Week</button>
+                <button id="monthChartButton" class="btn s-btn-custom">Month</button>
+                <button id="allTimeChartButton" class="btn s-btn-custom">All Time</button>
             </div>
         </div>
     </div>

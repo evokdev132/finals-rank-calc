@@ -23,9 +23,11 @@ export class DataService {
 
     static saveToHistory(points, currentPoints) {
         const history = LocalStorageService.getHistory();
+        const currentDate =new Date();
         history.push({
             season: currentSeason,
-            date: new Date(),
+            // dont judge me
+            date: currentDate.toLocaleString('sv-SE').replace(' ', 'T') + `.${String(currentDate.getMilliseconds()).padStart(3, '0')}`,
             gain: points,
             currentPoints
         });

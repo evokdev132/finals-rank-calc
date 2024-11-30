@@ -39,6 +39,10 @@ export const ranks = [
 ];
 export const currentSeason = 4;
 export const supportedSeasons = [4 ,5];
+export const seasonStartDate = {
+    4: new Date('2024-09-23T00:00:00Z'),
+    5: new Date('2024-12-12T00:00:00Z')
+};
 
 //Elements
 export const sidebarElement = document.getElementById('historySidebar');
@@ -64,6 +68,9 @@ export const emeraldFinalVictoryElement = document.getElementById('emeraldFinalV
 export const secondRoundAddButtonElement = document.getElementById('secondRoundAddButton');
 export const finalRoundAddButtonElement = document.getElementById('finalRoundAddButton');
 export const finalWinAddButtonElement = document.getElementById('finalWinAddButton');
+export const weekChartButtonElement = document.getElementById('weekChartButton');
+export const monthChartButtonElement = document.getElementById('monthChartButton');
+export const allTimeChartButtonElement = document.getElementById('allTimeChartButton');
 
 //Charts
-export const weeklyRatingChartElement = document.getElementById('weeklyRatingChart')
+export const ratingChartElement = document.getElementById('ratingChart')

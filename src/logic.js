@@ -14,9 +14,10 @@ import {
     emeraldSecondRoundElement,
     emeraldFinalRoundElement,
     emeraldFinalVictoryElement,
-    ranks, pointsInputElement
+    ranks,
+    pointsInputElement
 } from "./consts.js";
-import {updateWeeklyChart} from "./graph.js";
+import {GraphClass} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
 import {loadHistory} from "./history.js";
@@ -70,17 +71,16 @@ export function addPoints(points) {
     DataService.saveToHistory(points, newPoints);
     loadHistory();
 
-    updateWeeklyChart()
+    renderCalculations();
+    GraphClass.updateChart()
 }
 
 export function setPoints(value) {
     const points = Number.parseInt(value);
     LocalStorageService.saveCurrentPoints(points);
-    renderCalculations();
     DataService.saveToHistory(0, value);
-    loadHistory();
-
-    updateWeeklyChart()
+    renderCalculations();
+    GraphClass.updateChart();
 }
 
 

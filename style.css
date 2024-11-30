@@ -120,7 +120,21 @@ button.btn-custom {
     transition: background-color 0.3s;
 }
 
+button.s-btn-custom {
+    background-color: #444;
+    color: #F1F2F4;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s;
+}
+
 button.btn-custom:hover {
+    background-color: #555;
+}
+button.s-btn-custom:hover {
     background-color: #555;
 }
 .content-container {
