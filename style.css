@@ -86,7 +86,6 @@
 
     .history-sidebar {
         display: none;
-
     }
 
     .main-content,
@@ -103,6 +102,19 @@
         height: 5vh;
     }
 }
+
+@media (max-width: 400px) {
+    .content-container {
+        height: auto;
+        overflow-y: visible;
+        width: 100%;
+    }
+
+    .right-sidebar {
+        min-height: 40vh;
+    }
+}
+
 
 h1 {
     margin: 0;
