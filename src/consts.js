@@ -43,6 +43,7 @@ export const seasonStartDate = {
     4: new Date('2024-09-23T00:00:00Z'),
     5: new Date('2024-12-12T00:00:00Z')
 };
+export const sessionThresholdMS = 120 * 60 * 1000;
 
 //Elements
 export const sidebarElement = document.getElementById('historySidebar');
@@ -68,9 +69,11 @@ export const emeraldFinalVictoryElement = document.getElementById('emeraldFinalV
 export const secondRoundAddButtonElement = document.getElementById('secondRoundAddButton');
 export const finalRoundAddButtonElement = document.getElementById('finalRoundAddButton');
 export const finalWinAddButtonElement = document.getElementById('finalWinAddButton');
+export const sessionChartButtonElement = document.getElementById('sessionChartButton');
+export const dayChartButtonElement = document.getElementById('dayChartButton');
 export const weekChartButtonElement = document.getElementById('weekChartButton');
 export const monthChartButtonElement = document.getElementById('monthChartButton');
-export const allTimeChartButtonElement = document.getElementById('allTimeChartButton');
+export const seasonChartButtonElement = document.getElementById('seasonChartButton');
 
 //Charts
 export const ratingChartElement = document.getElementById('ratingChart')

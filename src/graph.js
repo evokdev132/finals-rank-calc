@@ -1,14 +1,16 @@
-import {ratingChartElement, seasonStartDate, currentSeason} from "./consts.js";
+import {ratingChartElement, seasonStartDate, currentSeason, sessionThresholdMS} from "./consts.js";
 import {DataService} from "./data.service.js";
-import {formatToDate} from "./date.util.js";
+import {formatToDate, formatToDateTime} from "./date.util.js";
 import {LocalStorageService} from "./localStorage.service.js";
 
 export class GraphClass {
     static ratingChart;
     static CHART_OPTIONS = {
+        session: 'Session',
+        day: 'Last 14 hours',
         week: 'Last 7 days',
         month: 'Last month',
-        allTime: `Season ${currentSeason}`
+        season: `Season ${currentSeason}`
     }
 
     static CHART_MODE = LocalStorageService.getGraphMode() || GraphClass.CHART_OPTIONS["week"];
@@ -77,20 +79,26 @@ export class GraphClass {
         const history = DataService.retrieveHistory();
         let datePoints;
         switch (chartMode) {
+            case GraphClass.CHART_OPTIONS.session:
+                datePoints = GraphClass.#getSessionPoints(history)
+                break;
+            case GraphClass.CHART_OPTIONS.day:
+                datePoints = GraphClass.#getDailyPoints()
+                break;
             case GraphClass.CHART_OPTIONS.week:
                 datePoints = GraphClass.#getWeeklyPoints()
                 break;
             case GraphClass.CHART_OPTIONS.month:
                 datePoints = GraphClass.#getMonthlyPoints()
                 break;
-            case GraphClass.CHART_OPTIONS.allTime:
-                datePoints = GraphClass.#getAllTimePoints()
+            case GraphClass.CHART_OPTIONS.season:
+                datePoints = GraphClass.#getSeasonPoints()
                 break;
         }
 
         const pointsGain = GraphClass.#compilePointsGain(datePoints, history);
 
-        chartData.labels = datePoints.map(point => formatToDate(point));
+        chartData.labels = datePoints.map(point => formatToDateTime(point));
         chartData.data = datePoints.map(label => pointsGain[new Date(label)]);
 
         if (GraphClass.ratingChart) {
@@ -100,12 +108,25 @@ export class GraphClass {
         }
     }
 
+    static calculateDatePoints(fromDate, count) {
+        const dates = [];
+        const now = new Date();
+        const lastPoint = now.getTime();
+        const firstPoint = fromDate.getTime();
+
+        for (let i = 0; i < count - 1; ++i) {
+            let delta = Math.round((lastPoint - firstPoint) / count);
+            dates.push(new Date(firstPoint + i * delta));
+        }
+        dates.push(now);
+        return dates;
+    }
 
     static #compilePointsGain(datePoints, history) {
         const pointsGain = {};
         let dateIndex = datePoints.length - 2; //skipping the last part
         let historyIndex = history.length - 1;
-        let closestPoints = history[history.length-1].currentPoints;
+        let closestPoints = history[history.length - 1].currentPoints;
 
         while (dateIndex > -1 && historyIndex > -1) {
             if (new Date(history[historyIndex].date) > datePoints[dateIndex]) {
@@ -126,57 +147,60 @@ export class GraphClass {
         return pointsGain;
     }
 
+    static #getDailyPoints() {
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 1);
+        return GraphClass.calculateDatePoints(startDate, 7);
+    }
 
     static #getWeeklyPoints() {
-        const datePoints = [];
-        const todayDate = new Date();
-        todayDate.setHours(0, 0, 0, 0);
-
-        for (let i = 6; i > 0; i--) {
-            const newDate = new Date(todayDate);
-            newDate.setDate(todayDate.getDate() - i);
-            datePoints.push(newDate);
-        }
-        datePoints.push(todayDate);
-        return datePoints;
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 7);
+        return GraphClass.calculateDatePoints(startDate, 7);
     }
 
     static #getMonthlyPoints() {
-        const datePoints = [];
-        const todayDate = new Date();
-        todayDate.setHours(0, 0, 0, 0);
-
-        const startOfInterval = new Date(todayDate);
-        startOfInterval.setDate(todayDate.getDate() - 29);
-
-        const interval = Math.floor(30 / 6);
-
-        for (let i = 0; i < 6; i++) {
-            const newDate = new Date(startOfInterval);
-            newDate.setDate(startOfInterval.getDate() + i * interval);
-            datePoints.push(newDate);
-        }
-
-        datePoints.push(todayDate);
-
-        return datePoints
+        const startDate = new Date();
+        startDate.setMonth(startDate.getMonth() - 1);
+        return GraphClass.calculateDatePoints(startDate, 7);
     }
 
-    static #getAllTimePoints() {
-        const datePoints = [];
-        const todayDate = new Date();
+    static #getSeasonPoints() {
         const startDate = seasonStartDate[currentSeason];
-        todayDate.setHours(0, 0, 0, 0);
-        const diffInDays = Math.floor((todayDate - startDate) / (1000 * 60 * 60 * 24));
-        const offset = Math.floor(diffInDays / 6);
+        return GraphClass.calculateDatePoints(startDate, 7);
+    }
 
-        for (let i = 0; i < 6; i++) {
-            const newDate = new Date(startDate);
-            newDate.setDate(startDate.getDate() + i * offset);
-            datePoints.push(newDate);
+    static #getSessionPoints(history) {
+        let historyIndex = history.length - 1;
+        if (history.length === 0) {
+            return [];
         }
 
-        datePoints.push(todayDate);
-        return datePoints;
+        let date;
+        let delta;
+        let lastDate = new Date();
+
+        if (lastDate - new Date(history[historyIndex].date) > sessionThresholdMS) {
+            return GraphClass.#getDailyPoints();
+        }
+
+        while (historyIndex > -1) {
+            date = new Date(history[historyIndex].date);
+            delta = lastDate - date;
+
+            if (delta < sessionThresholdMS) {
+                lastDate = date;
+                console.log("Latest date", lastDate)
+            } else {
+                console.log("Way too big of an offset from latest date", date)
+                break;
+            }
+
+            historyIndex--;
+        }
+
+        // cover the error
+        lastDate.setMinutes(lastDate.getMinutes() - 1);
+        return GraphClass.calculateDatePoints(lastDate, 7);
     }
 }
