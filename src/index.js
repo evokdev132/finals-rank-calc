@@ -5,7 +5,9 @@ import {
     finalWinAddButtonElement,
     weekChartButtonElement,
     monthChartButtonElement,
-    allTimeChartButtonElement
+    seasonChartButtonElement,
+    dayChartButtonElement,
+    sessionChartButtonElement
 } from "./consts.js";
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
@@ -59,14 +61,20 @@ export function initializeDom() {
         addPoints(25);
     })
 
+    sessionChartButtonElement.addEventListener('click', () => {
+        GraphClass.setChartMode(GraphClass.CHART_OPTIONS.session)
+    })
+    dayChartButtonElement.addEventListener('click', () => {
+        GraphClass.setChartMode(GraphClass.CHART_OPTIONS.day)
+    })
     weekChartButtonElement.addEventListener('click', () => {
         GraphClass.setChartMode(GraphClass.CHART_OPTIONS.week)
     })
     monthChartButtonElement.addEventListener('click', () => {
         GraphClass.setChartMode(GraphClass.CHART_OPTIONS.month)
     })
-    allTimeChartButtonElement.addEventListener('click', () => {
-        GraphClass.setChartMode(GraphClass.CHART_OPTIONS.allTime)
+    seasonChartButtonElement.addEventListener('click', () => {
+        GraphClass.setChartMode(GraphClass.CHART_OPTIONS.season)
     })
 }
 
