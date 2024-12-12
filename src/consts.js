@@ -37,7 +37,7 @@ export const ranks = [
         maxPoints: 2400,
     },
 ];
-export const currentSeason = 4;
+export const currentSeason = 5;
 export const supportedSeasons = [4 ,5];
 export const seasonStartDate = {
     4: new Date('2024-09-23T00:00:00Z'),
@@ -64,6 +64,7 @@ export const finalVictoryElement = document.getElementById('finalVictory');
 export const emeraldSecondRoundElement = document.getElementById('emeraldSecondRound');
 export const emeraldFinalRoundElement = document.getElementById('emeraldFinalRound');
 export const emeraldFinalVictoryElement = document.getElementById('emeraldFinalVictory');
+export const rankColumnElement = document.getElementById('rankColumn');
 
 // Buttons
 export const secondRoundAddButtonElement = document.getElementById('secondRoundAddButton');
