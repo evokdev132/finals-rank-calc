@@ -205,20 +205,18 @@ export class GraphClass {
     }
 
     static #addRankLines(points) {
-        console.log(points);
-        const maximum = points[points.length - 1] + (points[points.length - 1] * 0.4);
+        const maximum = points[points.length - 1] * 1.5;
         const minimum = points[0] ?? points[points.length - 1];
         const annotations = {};
 
         ranks.forEach(rank => {
-            if (minimum < rank.basePoints) {
-                console.log(`hit: ${rank.name}`)
+            if (minimum < rank.basePoints && rank.basePoints < maximum) {
                 annotations[rank.name] = GraphClass.#getLine(rank.basePoints, rank.name)
             }
         });
-        console.log(minimum)
-        console.log(maximum)
-        console.log(annotations)
+        const closestUp = ranks.find(rank => rank.basePoints > maximum);
+        annotations[closestUp.name] = GraphClass.#getLine(closestUp.basePoints, closestUp.name);
+
         GraphClass.ratingChart.options.plugins.annotation = {annotations}
     }
 

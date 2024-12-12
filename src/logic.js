@@ -99,6 +99,11 @@ function getRankData(points) {
         }
     }
 
+    if (points < 25) {
+        rankData = {name: 'Unranked', basePoints: 0, increment: 25, maxPoints: 25};
+        nextRankData = ranks[0];
+    }
+
     if (!rankData) {
         return {
             rank: 'Unranked',
@@ -116,7 +121,6 @@ function getRankData(points) {
     const tierNumber = 4 - Math.floor((points - basePoints) / increment);
     const tier = `Tier ${Math.max(1, Math.min(4, tierNumber))}`;
 
-
     let nextTierName;
     let nextTierPoints;
     if (tierNumber > 1) {
@@ -125,6 +129,10 @@ function getRankData(points) {
     } else {
         nextTierPoints = nextRankData ? nextRankData.basePoints : 'N/A';
         nextTierName = nextRankData ? `${nextRankData.name} 4` : 'N/A';
+    }
+    if (points < 25) {
+        nextTierPoints = 25;
+        nextTierName = 'Tier 4';
     }
     const pointsToNextTier = points < nextTierPoints ? nextTierPoints - points : 'N/A';
 
