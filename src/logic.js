@@ -15,7 +15,7 @@ import {
     emeraldFinalRoundElement,
     emeraldFinalVictoryElement,
     ranks,
-    pointsInputElement
+    pointsInputElement, rankColumnElement
 } from "./consts.js";
 import {GraphClass} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
@@ -60,6 +60,10 @@ export function renderCalculations() {
     emeraldSecondRoundElement.innerText = `Second Round: ${Math.ceil(pointsToEmerald / 6)} times`;
     emeraldFinalRoundElement.innerText = `Final Round: ${Math.ceil(pointsToEmerald / 14)} times`;
     emeraldFinalVictoryElement.innerText = `Final Victory: ${Math.ceil(pointsToEmerald / 25)} times`;
+
+    if (points > ranks[5].basePoints) {
+        rankColumnElement.style.display = 'none';
+    }
 }
 
 export function addPoints(points) {

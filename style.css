@@ -3,10 +3,14 @@
     src: url('res/fonts/Saira_Condensed-Medium.ttf') format('truetype');
 }
 
+.header {
+    flex-direction: row;
+    gap: 2%;
+}
 .container {
     display: flex;
     height: 100vh;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .history-sidebar {
@@ -68,6 +72,12 @@
 }
 
 @media (max-width: 1800px) {
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        overflow: hidden;
+    }
     .history-sidebar {
         flex: 0 0 20%;
     }
@@ -78,24 +88,23 @@
 }
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
-        overflow-y: auto;
-        justify-content: flex-start;
-        align-items: stretch;
+        height: auto;
+        overflow-y: visible;
+        width: 100%;
     }
 
     .history-sidebar {
         display: none;
     }
 
-    .main-content,
-    .right-sidebar {
-        flex: 1 1 auto;
-        max-width: 100%;
-    }
+    /*.main-content,*/
+    /*.right-sidebar {*/
+    /*    flex: 1 1 auto;*/
+    /*    max-width: 100%;*/
+    /*}*/
 
     .right-sidebar {
-        height: 40vh;
+        min-height: 10vh;
     }
 
     .chart-container {
@@ -151,6 +160,17 @@ button.btn-custom {
     transition: background-color 0.3s;
 }
 
+button.btn-season {
+    /*background-color: #D21F3C;*/
+    color: #F1F2F4;
+    background-color: #444;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 button.s-btn-custom {
     background-color: #444;
     color: #F1F2F4;
@@ -166,6 +186,9 @@ button.btn-custom:hover {
     background-color: #fda708;
 }
 button.s-btn-custom:hover {
+    background-color: #555;
+}
+button.btn-season:hover {
     background-color: #555;
 }
 .content-container {
