@@ -1,4 +1,4 @@
-import {ratingChartElement, seasonStartDate, currentSeason, sessionThresholdMS} from "./consts.js";
+import {ratingChartElement, seasonStartDate, currentSeason, sessionThresholdMS, ranks} from "./consts.js";
 import {DataService} from "./data.service.js";
 import {formatToDate, formatToDateTime} from "./date.util.js";
 import {LocalStorageService} from "./localStorage.service.js";
@@ -36,6 +36,7 @@ export class GraphClass {
                     legend: {
                         display: false,
                     },
+                    annotation: {},
                 },
                 scales: {
                     x: {
@@ -104,6 +105,7 @@ export class GraphClass {
         if (GraphClass.ratingChart) {
             GraphClass.ratingChart.data.labels = chartData.labels;
             GraphClass.ratingChart.data.datasets[0].data = chartData.data;
+            GraphClass.#addRankLines(chartData.data);
             GraphClass.ratingChart.update();
         }
     }
@@ -143,7 +145,7 @@ export class GraphClass {
             pointsGain[datePoints[dateIndex]] = closestPoints;
         }
 
-        pointsGain[datePoints[datePoints.length-1]] = history[history.length-1].currentPoints;
+        pointsGain[datePoints[datePoints.length - 1]] = history[history.length - 1].currentPoints;
         return pointsGain;
     }
 
@@ -190,9 +192,7 @@ export class GraphClass {
 
             if (delta < sessionThresholdMS) {
                 lastDate = date;
-                console.log("Latest date", lastDate)
             } else {
-                console.log("Way too big of an offset from latest date", date)
                 break;
             }
 
@@ -202,5 +202,55 @@ export class GraphClass {
         // cover the error
         lastDate.setMinutes(lastDate.getMinutes() - 1);
         return GraphClass.calculateDatePoints(lastDate, 7);
+    }
+
+    static #addRankLines(points) {
+        console.log(points);
+        const maximum = points[points.length - 1] + (points[points.length - 1] * 0.4);
+        const minimum = points[0] ?? points[points.length - 1];
+        const annotations = {};
+
+        ranks.forEach(rank => {
+            if (minimum < rank.basePoints) {
+                console.log(`hit: ${rank.name}`)
+                annotations[rank.name] = GraphClass.#getLine(rank.basePoints, rank.name)
+            }
+        });
+        console.log(minimum)
+        console.log(maximum)
+        console.log(annotations)
+        GraphClass.ratingChart.options.plugins.annotation = {annotations}
+    }
+
+    static #getLine(points, name) {
+        return {
+            type: 'line',
+            yMin: points,
+            yMax: points,
+            label: {
+                content: name,
+                display: true
+            },
+            borderColor: GraphClass.#getLineColor(name),
+            borderDash: [6, 6],
+            borderWidth: 2,
+        }
+    }
+
+    static #getLineColor(name) {
+        switch (name) {
+            case 'Bronze':
+                return '#906a5c';
+            case 'Silver':
+                return '#c5c8d0'
+            case 'Gold':
+                return '#c7a545';
+            case 'Platinum':
+                return '#b4b8bb'
+            case 'Diamond':
+                return '#5b9fc3';
+            case 'Emerald':
+                return '#018641'
+        }
     }
 }
