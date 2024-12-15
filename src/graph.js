@@ -115,12 +115,11 @@ export class GraphClass {
         const now = new Date();
         const lastPoint = now.getTime();
         const firstPoint = fromDate.getTime();
+        const delta = Math.round((lastPoint - firstPoint) / (count - 1));
 
-        for (let i = 0; i < count - 1; ++i) {
-            let delta = Math.round((lastPoint - firstPoint) / count);
+        for (let i = 0; i < count; ++i) {
             dates.push(new Date(firstPoint + i * delta));
         }
-        dates.push(now);
         return dates;
     }
 
@@ -157,7 +156,7 @@ export class GraphClass {
 
     static #getWeeklyPoints() {
         const startDate = new Date();
-        startDate.setDate(startDate.getDate() - 7);
+        startDate.setDate(startDate.getDate() - 6);
         return GraphClass.calculateDatePoints(startDate, 7);
     }
 
