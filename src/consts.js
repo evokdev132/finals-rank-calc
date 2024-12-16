@@ -1,4 +1,5 @@
 // JS const
+export const maxPoints = 2400;
 export const ranks = [
     {
         name: 'Bronze',
@@ -34,7 +35,7 @@ export const ranks = [
         name: 'Emerald',
         basePoints: 1800,
         increment: 200,
-        maxPoints: 2400,
+        maxPoints: maxPoints,
     },
 ];
 export const currentSeason = 5;
@@ -43,7 +44,12 @@ export const seasonStartDate = {
     4: new Date('2024-09-23T00:00:00Z'),
     5: new Date('2024-12-12T00:00:00Z')
 };
+export const seasonEndDate = {
+    4: new Date('2024-12-11T23:59:59Z'),
+    5: new Date('2025-03-06T23:59:59Z'),
+}
 export const sessionThresholdMS = 120 * 60 * 1000;
+export const maxDeviation = 200;
 
 //Elements
 export const sidebarElement = document.getElementById('historySidebar');
