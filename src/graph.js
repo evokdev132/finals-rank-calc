@@ -6,11 +6,27 @@ import {
     currentSeason,
     sessionThresholdMS,
     ranks,
-    approxThreshold,
+    maxDeviation,
 } from "./consts.js";
 import {DataService} from "./data.service.js";
 import {formatToDate, formatToDateTime} from "./date.util.js";
 import {LocalStorageService} from "./localStorage.service.js";
+
+
+class AnnotationConfig {
+    approximation;
+    ranks;
+
+    constructor(ranks, approximation) {
+        this.ranks = ranks;
+        this.approximation = approximation;
+    }
+
+    static ranksOnly() {
+        return new AnnotationConfig(true, false);
+    }
+}
+
 
 export class GraphClass {
     static ratingChart;
@@ -89,23 +105,27 @@ export class GraphClass {
         };
         const history = DataService.retrieveHistory();
         let datePoints;
-        let showApproxLine = false;
+        let annotationConfig;
         switch (chartMode) {
             case GraphClass.CHART_OPTIONS.session:
-                datePoints = GraphClass.#getSessionPoints(history)
+                datePoints = GraphClass.#getSessionPoints(history);
+                annotationConfig = AnnotationConfig.ranksOnly();
                 break;
             case GraphClass.CHART_OPTIONS.day:
-                datePoints = GraphClass.#getDailyPoints()
+                datePoints = GraphClass.#getDailyPoints();
+                annotationConfig = AnnotationConfig.ranksOnly();
                 break;
             case GraphClass.CHART_OPTIONS.week:
-                datePoints = GraphClass.#getWeeklyPoints()
+                datePoints = GraphClass.#getWeeklyPoints();
+                annotationConfig = AnnotationConfig.ranksOnly();
                 break;
             case GraphClass.CHART_OPTIONS.month:
-                datePoints = GraphClass.#getMonthlyPoints()
+                datePoints = GraphClass.#getMonthlyPoints();
+                annotationConfig = AnnotationConfig.ranksOnly();
                 break;
             case GraphClass.CHART_OPTIONS.season:
-                datePoints = GraphClass.#getSeasonPoints()
-                showApproxLine = true
+                datePoints = GraphClass.#getSeasonPoints();
+                annotationConfig = new AnnotationConfig(true, true);
                 break;
         }
 
@@ -117,10 +137,7 @@ export class GraphClass {
         if (GraphClass.ratingChart) {
             GraphClass.ratingChart.data.labels = chartData.labels;
             GraphClass.ratingChart.data.datasets[0].data = chartData.data;
-            GraphClass.#addRankLines(chartData.data);
-            if (showApproxLine) {
-                GraphClass.#addApproxLine(datePoints, LocalStorageService.getCurrentPoints());
-            }
+            GraphClass.#addAnnotatedLines(datePoints, chartData.data, annotationConfig);
             GraphClass.ratingChart.update();
         }
     }
@@ -218,7 +235,18 @@ export class GraphClass {
         return GraphClass.calculateDatePoints(lastDate, 7);
     }
 
-    static #addRankLines(points) {
+    static #addAnnotatedLines(datePoints, points, config) {
+        let annotations = {};
+        if (config.ranks) {
+            annotations = {...annotations, ...GraphClass.#getRankLines(points)};
+        }
+        if (config.approximation) {
+            annotations = {...annotations, ...GraphClass.#getApproximationLine(datePoints, points)};
+        }
+        GraphClass.ratingChart.options.plugins.annotation = {annotations}
+    }
+
+    static #getRankLines(points) {
         const maximum = points[points.length - 1] * 1.5;
         const minimum = points[0] ?? points[points.length - 1];
         const annotations = {};
@@ -230,22 +258,22 @@ export class GraphClass {
         });
         const closestUp = ranks.find(rank => rank.basePoints > maximum);
         annotations[closestUp.name] = GraphClass.#getLine(closestUp.basePoints, closestUp.name);
-
-        GraphClass.ratingChart.options.plugins.annotation = {annotations}
+        return annotations;
     }
 
-    static #addApproxLine(datePoints, points) {
+    static #getApproximationLine(datePoints, points) {
+        let annotations = {}
         const begin = seasonStartDate[currentSeason].getTime();
         const end = seasonEndDate[currentSeason].getTime();
         const delta = maxPoints / (end - begin);
         const now = new Date().getTime();
         const currentApprox = delta * (now - begin);
-        if (Math.abs(currentApprox - points) <= approxThreshold) {
+        if (Math.abs(currentApprox - points[points.length - 1]) <= maxDeviation) {
             const beginPoints = delta * (datePoints[0].getTime() - begin);
-            const endPoints = delta * (datePoints[datePoints.length - 1].getTime() - begin)
-            const apporoxLine = GraphClass.#getLeanLine(beginPoints, endPoints, GraphClass.APPROX_LINE_NAME)
-            GraphClass.ratingChart.options.plugins.annotation["annotations"][GraphClass.APPROX_LINE_NAME] = apporoxLine;
+            const endPoints = delta * (datePoints[datePoints.length - 1].getTime() - begin);
+            annotations[GraphClass.APPROX_LINE_NAME] = GraphClass.#getLeanLine(beginPoints, endPoints, GraphClass.APPROX_LINE_NAME);
         }
+        return annotations;
     }
 
     static #getLine(points, name) {
