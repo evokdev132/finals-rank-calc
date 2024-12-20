@@ -7,11 +7,13 @@ import {
     monthChartButtonElement,
     seasonChartButtonElement,
     dayChartButtonElement,
-    sessionChartButtonElement
+    sessionChartButtonElement,
+    ranksCheckboxElement,
+    targetCheckboxElement
 } from "./consts.js";
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
-import {GraphClass} from "./graph.js";
+import {GraphClass, AnnotationConfig} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
 
@@ -24,6 +26,8 @@ export function initializeDom() {
         DataService.initHistory();
         loadHistory();
 
+        let config;
+
         const savedPoints = LocalStorageService.getCurrentPoints();
         if (savedPoints) {
             pointsInputElement.value = savedPoints;
@@ -33,6 +37,16 @@ export function initializeDom() {
         const graphMode = LocalStorageService.getGraphMode();
         if (!graphMode) {
             LocalStorageService.saveGraphMode(GraphClass.CHART_OPTIONS.week)
+        }
+
+        const graphConfig = LocalStorageService.getGraphConfig();
+        if (!graphConfig) {
+            config = new AnnotationConfig(ranksCheckboxElement.checked, targetCheckboxElement.checked);
+            LocalStorageService.saveGraphConfig(config.asObject());
+        } else {
+            config = AnnotationConfig.fromObject(graphConfig);
+            ranksCheckboxElement.checked = config.ranks;
+            targetCheckboxElement.checked = config.approximation;
         }
 
         GraphClass.createChart();
@@ -75,6 +89,13 @@ export function initializeDom() {
     })
     seasonChartButtonElement.addEventListener('click', () => {
         GraphClass.setChartMode(GraphClass.CHART_OPTIONS.season)
+    })
+
+    ranksCheckboxElement.addEventListener('change', () => {
+        GraphClass.showRanks(ranksCheckboxElement.checked);
+    })
+    targetCheckboxElement.addEventListener('change', () => {
+        GraphClass.showApproximation(targetCheckboxElement.checked);
     })
 }
 

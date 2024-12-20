@@ -191,6 +191,25 @@ button.s-btn-custom:hover {
 button.btn-season:hover {
     background-color: #555;
 }
+
+.checkbox-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+input.s-checkbox-custom {
+    color: #F1F2F4;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background-color 0.3s;
+}
+input.s-checkbox-custom + label {
+    color: #F1F2F4;
+    cursor: pointer;
+}
+
 .content-container {
     display: flex;
     flex-direction: column;
