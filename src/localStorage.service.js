@@ -5,6 +5,7 @@ export class LocalStorageService {
     static S4_CURRENT_HISTORY = 'history';
     static S5_CURRENT_HISTORY = 's5history';
     static CURRENT_GRAPH = 'graphMode';
+    static GRAPH_CONFIG = 'graphConfig';
 
     static getCurrentPoints() {
         return LocalStorageService.#getInt(LocalStorageService.S5_CURRENT_POINTS);
@@ -23,11 +24,19 @@ export class LocalStorageService {
     }
 
     static getHistory() {
-        return LocalStorageService.#getArray(LocalStorageService.S5_CURRENT_HISTORY);
+        return LocalStorageService.#getObject(LocalStorageService.S5_CURRENT_HISTORY);
     }
 
     static saveHistory(history) {
-        LocalStorageService.#setArray(LocalStorageService.S5_CURRENT_HISTORY, history);
+        LocalStorageService.#setObject(LocalStorageService.S5_CURRENT_HISTORY, history);
+    }
+
+    static getGraphConfig() {
+        return LocalStorageService.#getObject(LocalStorageService.GRAPH_CONFIG);
+    }
+
+    static saveGraphConfig(config) {
+        LocalStorageService.#setObject(LocalStorageService.GRAPH_CONFIG, config);
     }
 
     static #setInt(key, value) {
@@ -46,11 +55,11 @@ export class LocalStorageService {
         return localStorage.getItem(key);
     }
 
-    static #setArray(key, value) {
+    static #setObject(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
     }
 
-    static #getArray(key) {
+    static #getObject(key) {
         const item = localStorage.getItem(key);
         return item ? JSON.parse(localStorage.getItem(key)) : null;
     }

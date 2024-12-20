@@ -8,7 +8,9 @@ import {
     seasonChartButtonElement,
     dayChartButtonElement,
     sessionChartButtonElement,
-    checkboxes
+    checkboxes,
+    displayCheckboxes,
+    ChartConfigOption
 } from "./consts.js";
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
@@ -36,6 +38,8 @@ export function initializeDom() {
             LocalStorageService.saveGraphMode(GraphClass.CHART_OPTIONS.week)
         }
 
+        // add config
+        loadDisplayConfig();
         GraphClass.createChart();
     };
 
@@ -80,9 +84,13 @@ export function initializeDom() {
 
     document.addEventListener("DOMContentLoaded", () => {
         loadColumnsState();
+        loadDisplayConfigState();
         Object.keys(checkboxes).forEach(id => {
             document.getElementById(id).addEventListener("change", () => toggleColumn(id));
         });
+        Object.keys(displayCheckboxes).forEach(id => {
+            document.getElementById(id).addEventListener("change", () => toggleDisplayConfig(id));
+        })
     });
 }
 
@@ -102,12 +110,45 @@ function loadColumnsState() {
     });
 }
 
-    function toggleColumn(id) {
-        const checkbox = document.getElementById(id);
-        const column = document.getElementById(checkboxes[id]);
-        column.classList.toggle('hidden', !checkbox.checked);
-        localStorage.setItem(id, checkbox.checked);
+function toggleColumn(id) {
+    const checkbox = document.getElementById(id);
+    const column = document.getElementById(checkboxes[id]);
+    column.classList.toggle('hidden', !checkbox.checked);
+    localStorage.setItem(id, checkbox.checked);
+}
+
+function loadDisplayConfig() {
+    let graphConfig = LocalStorageService.getGraphConfig();
+    if (Object.is(graphConfig, null)) {
+        graphConfig = {
+            [ChartConfigOption.RANKS]: true,
+            [ChartConfigOption.TARGET]: false
+        };
+        LocalStorageService.saveGraphConfig(graphConfig);
     }
+
+    return graphConfig;
+}
+
+function loadDisplayConfigState() {
+    const graphConfig = loadDisplayConfig();
+    Object.keys(displayCheckboxes).forEach(id => {
+        const checkbox = document.getElementById(id);
+        const savedState = graphConfig[displayCheckboxes[id]];
+
+        // if key does not exist, then it's undefined and !== null will be false(!)
+        if (savedState != null) {
+            checkbox.checked = savedState;
+        } else {
+            checkbox.checked = false;
+        }
+    });
+}
+
+function toggleDisplayConfig(id) {
+    const checkbox = document.getElementById(id);
+    GraphClass.setConfig(displayCheckboxes[id], checkbox.checked)
+}
 
 
 initializeDom();
