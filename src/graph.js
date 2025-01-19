@@ -132,7 +132,7 @@ export class GraphClass {
         const pointsGain = GraphClass.#compilePointsGain(datePoints, history);
 
         chartData.labels = datePoints.map(point => formatToDateTime(point));
-        chartData.data = datePoints.map(label => pointsGain[new Date(label)]);
+        chartData.data = datePoints.map(label => pointsGain[new Date(label)]);        
 
         if (GraphClass.ratingChart) {
             GraphClass.ratingChart.data.labels = chartData.labels;
@@ -256,8 +256,10 @@ export class GraphClass {
                 annotations[rank.name] = GraphClass.#getLine(rank.basePoints, rank.name)
             }
         });
-        const closestUp = ranks.find(rank => rank.basePoints > maximum);
-        annotations[closestUp.name] = GraphClass.#getLine(closestUp.basePoints, closestUp.name);
+        if (ranks.length) {
+            const closestUp = ranks.find(rank => rank.basePoints > maximum);
+            annotations[closestUp.name] = GraphClass.#getLine(closestUp.basePoints, closestUp.name);
+        }
         return annotations;
     }
 
