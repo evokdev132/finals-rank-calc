@@ -49,7 +49,7 @@ export const seasonEndDate = {
     5: new Date('2025-03-06T23:59:59Z'),
 }
 export const sessionThresholdMS = 120 * 60 * 1000;
-export const maxDeviation = 200;
+export const maxDeviation = 500;
 
 //Elements
 export const sidebarElement = document.getElementById('historySidebar');

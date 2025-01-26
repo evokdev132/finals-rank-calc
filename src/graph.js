@@ -247,17 +247,20 @@ export class GraphClass {
     }
 
     static #getRankLines(points) {
-        const maximum = points[points.length - 1] * 1.5;
+        const maximum = points[points.length - 1];
         const minimum = points[0] ?? points[points.length - 1];
         const annotations = {};
 
+        // show the lines which are only in-between max/min
         ranks.forEach(rank => {
             if (minimum < rank.basePoints && rank.basePoints < maximum) {
                 annotations[rank.name] = GraphClass.#getLine(rank.basePoints, rank.name)
             }
         });
-        if (ranks.length) {
-            const closestUp = ranks.find(rank => rank.basePoints > maximum);
+
+        // then find the next rank and if it exists and within the reach - show it too
+        const closestUp = ranks.find(rank => rank.basePoints > maximum && rank.basePoints - maximum < maxDeviation);
+        if (closestUp) {
             annotations[closestUp.name] = GraphClass.#getLine(closestUp.basePoints, closestUp.name);
         }
         return annotations;
