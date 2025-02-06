@@ -46,7 +46,7 @@ export const seasonStartDate = {
 };
 export const seasonEndDate = {
     4: new Date('2024-12-11T23:59:59Z'),
-    5: new Date('2025-03-06T23:59:59Z'),
+    5: new Date('2025-03-19T23:59:59Z'),
 }
 export const sessionThresholdMS = 120 * 60 * 1000;
 export const maxDeviation = 500;
@@ -70,6 +70,9 @@ export const finalVictoryElement = document.getElementById('finalVictory');
 export const emeraldSecondRoundElement = document.getElementById('emeraldSecondRound');
 export const emeraldFinalRoundElement = document.getElementById('emeraldFinalRound');
 export const emeraldFinalVictoryElement = document.getElementById('emeraldFinalVictory');
+export const dailyGainGoalElement = document.getElementById('dailyGainGoal');
+export const todayGainElement = document.getElementById('todayGain');
+export const expectedPointsElement = document.getElementById('expectedPoints');
 export const rankColumnElement = document.getElementById('rankColumn');
 
 // Buttons
@@ -84,3 +87,12 @@ export const seasonChartButtonElement = document.getElementById('seasonChartButt
 
 //Charts
 export const ratingChartElement = document.getElementById('ratingChart')
+
+//Checkboxes
+export const checkboxes = {
+    checkBoxDaily: 'dailyGainColumn',
+    checkBoxTier: 'tierColumn',
+    checkBoxRank: 'rankColumn',
+    checkBoxEm: 'emeraldColumn'
+};
+

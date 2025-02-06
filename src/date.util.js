@@ -15,3 +15,7 @@ export function formatToDate(timestamp) {
         year: '2-digit'
     })
 }
+
+export function daysBetween(a, b) {
+    return Math.ceil(Math.abs(b - a) / (1000 * 60 * 60 * 24));
+}

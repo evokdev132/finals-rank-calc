@@ -7,7 +7,8 @@ import {
     monthChartButtonElement,
     seasonChartButtonElement,
     dayChartButtonElement,
-    sessionChartButtonElement
+    sessionChartButtonElement,
+    checkboxes
 } from "./consts.js";
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
@@ -76,6 +77,38 @@ export function initializeDom() {
     seasonChartButtonElement.addEventListener('click', () => {
         GraphClass.setChartMode(GraphClass.CHART_OPTIONS.season)
     })
+
+    document.addEventListener("DOMContentLoaded", () => {
+        loadColumnsState();
+        Object.keys(checkboxes).forEach(id => {
+            document.getElementById(id).addEventListener("change", () => toggleColumn(id));
+        });
+    });
 }
 
+function loadColumnsState() {
+    Object.keys(checkboxes).forEach(id => {
+        const checkbox = document.getElementById(id);
+        const column = document.getElementById(checkboxes[id]);
+        const savedState = localStorage.getItem(id);
+
+        if (savedState !== null) {
+            checkbox.checked = savedState === 'true';
+        } else {
+            checkbox.checked = true;
+        }
+
+        column.classList.toggle('hidden', !checkbox.checked);
+    });
+}
+
+    function toggleColumn(id) {
+        const checkbox = document.getElementById(id);
+        const column = document.getElementById(checkboxes[id]);
+        column.classList.toggle('hidden', !checkbox.checked);
+        localStorage.setItem(id, checkbox.checked);
+    }
+
+
 initializeDom();
+loadColumnsState();

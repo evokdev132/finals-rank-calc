@@ -16,3 +16,15 @@ export function loadHistory() {
 function formatHistoryEntry(entry) {
     return `${formatToDateTime(entry.date)}  +${entry.gain}`;
 }
+
+export function getTodayHistory() {
+    const history = DataService.retrieveHistory();
+    const today = new Date().toISOString().split("T")[0];
+    const result = [];
+
+    for (let i = history.length - 1; i >= 0; i--) {
+        if (!history[i].date.startsWith(today)) break;
+        result.unshift(history[i]);
+    }
+    return result;
+}

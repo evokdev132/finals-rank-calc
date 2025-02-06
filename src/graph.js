@@ -243,6 +243,7 @@ export class GraphClass {
         if (config.approximation) {
             annotations = {...annotations, ...GraphClass.#getApproximationLine(datePoints, points)};
         }
+        console.log(annotations)
         GraphClass.ratingChart.options.plugins.annotation = {annotations}
     }
 
@@ -292,7 +293,8 @@ export class GraphClass {
             yMax: pointsTo,
             label: {
                 content: name,
-                display: true
+                display: true,
+                position: name === GraphClass.APPROX_LINE_NAME ? '80%' : '20%'
             },
             borderColor: GraphClass.#getLineColor(name),
             borderDash: [6, 6],

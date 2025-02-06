@@ -14,6 +14,12 @@
     </a>
     <button id="season4" class="btn btn-season">Season 4</button>
     <button id="season5" class="btn btn-season">Season 5</button>
+    <div class="controls">
+        <label><input type="checkbox" id="checkBoxDaily">Daily Gain</label>
+        <label><input type="checkbox" id="checkBoxTier">To Next Tier</label>
+        <label><input type="checkbox" id="checkBoxRank">To Next Rank</label>
+        <label><input type="checkbox" id="checkBoxEm">To Emerald 1</label>
+    </div>
 </div>
 
 <div class="container">
@@ -36,6 +42,12 @@
             </div>
 
             <div class="columns">
+                <div class="column" id="dailyGainColumn">
+                    <h3>Daily Gain</h3>
+                    <p id="dailyGainGoal">Daily gain goal: 0</p>
+                    <p id="todayGain">Today's gain: 0</p>
+                    <p id="expectedPoints">Expected points: 0</p>
+                </div>
                 <div class="column" id="tierColumn">
                     <h3>To Next Tier <span id="nextTierName">(N/A)</span> - <span
                             id="nextTierPoints">0 points</span>

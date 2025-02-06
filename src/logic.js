@@ -15,12 +15,17 @@ import {
     emeraldFinalRoundElement,
     emeraldFinalVictoryElement,
     ranks,
-    pointsInputElement, rankColumnElement
+    pointsInputElement,
+    rankColumnElement,
+    dailyGainGoalElement,
+    todayGainElement,
+    expectedPointsElement, seasonEndDate, currentSeason, seasonStartDate, maxPoints
 } from "./consts.js";
 import {GraphClass} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
-import {loadHistory} from "./history.js";
+import {getTodayHistory, loadHistory} from "./history.js";
+import {daysBetween} from "./date.util.js";
 
 export function renderCalculations() {
     const points = LocalStorageService.getCurrentPoints();
@@ -64,6 +69,19 @@ export function renderCalculations() {
     if (points > ranks[5].basePoints) {
         rankColumnElement.style.display = 'none';
     }
+
+    dailyGainGoalElement.innerText = `Daily gain goal: ${Math.ceil(pointsToEmerald / daysBetween(new Date(), seasonEndDate[currentSeason]))}`
+    todayGainElement.innerText = `Today's gain: ${getTodayHistory().reduce((sum, item) => sum + (item.gain || 0),0)}`;
+    expectedPointsElement.innerText = `Expected points: ${getPointsApproximation()}`;
+}
+
+//duplicate, idc
+function getPointsApproximation(){
+    const begin = seasonStartDate[currentSeason].getTime();
+    const end = seasonEndDate[currentSeason].getTime();
+    const delta = maxPoints / (end - begin);
+    const now = new Date().getTime();
+    return Math.ceil(delta * (now - begin));
 }
 
 export function addPoints(points) {
