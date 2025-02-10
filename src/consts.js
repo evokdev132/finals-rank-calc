@@ -85,8 +85,18 @@ export const weekChartButtonElement = document.getElementById('weekChartButton')
 export const monthChartButtonElement = document.getElementById('monthChartButton');
 export const seasonChartButtonElement = document.getElementById('seasonChartButton');
 
+// Checkboxes
+export const ranksCheckboxElement = document.getElementById('ranksCheckbox');
+export const targetCheckboxElement = document.getElementById('targetCheckbox');
+
 //Charts
 export const ratingChartElement = document.getElementById('ratingChart')
+
+// Chart config options
+export const ChartConfigOption = Object.freeze({
+    RANKS: "ranks",
+    TARGET: "target"
+});
 
 //Checkboxes
 export const checkboxes = {
@@ -95,4 +105,7 @@ export const checkboxes = {
     checkBoxRank: 'rankColumn',
     checkBoxEm: 'emeraldColumn'
 };
-
+export const displayCheckboxes = {
+    checkBoxRanks: ChartConfigOption.RANKS,
+    checkBoxTarget: ChartConfigOption.TARGET
+}
