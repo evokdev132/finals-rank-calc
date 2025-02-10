@@ -267,13 +267,9 @@ export class GraphClass {
         const begin = seasonStartDate[currentSeason].getTime();
         const end = seasonEndDate[currentSeason].getTime();
         const delta = maxPoints / (end - begin);
-        const now = new Date().getTime();
-        const currentTarget = delta * (now - begin);
-        if (Math.abs(currentTarget - points[points.length - 1]) <= maxDeviation) {
-            const beginPoints = delta * (datePoints[0].getTime() - begin);
-            const endPoints = delta * (datePoints[datePoints.length - 1].getTime() - begin);
-            annotations[GraphClass.TARGET_LINE_NAME] = GraphClass.#getLeanLine(beginPoints, endPoints, GraphClass.TARGET_LINE_NAME);
-        }
+        const beginPoints = delta * (datePoints[0].getTime() - begin);
+        const endPoints = delta * (datePoints[datePoints.length - 1].getTime() - begin);
+        annotations[GraphClass.TARGET_LINE_NAME] = GraphClass.#getLeanLine(beginPoints, endPoints, GraphClass.TARGET_LINE_NAME);
         return annotations;
     }
 
