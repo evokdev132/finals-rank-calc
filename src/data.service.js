@@ -33,4 +33,16 @@ export class DataService {
         });
         LocalStorageService.saveHistory(history);
     }
+
+    static setHistory(history) {
+        if (history && Array.isArray(history)) {
+            LocalStorageService.saveHistory(history);
+        }
+    }
+
+    static setPoints(points) {
+        if (points) {
+            LocalStorageService.saveCurrentPoints(points);
+        }
+    }
 }

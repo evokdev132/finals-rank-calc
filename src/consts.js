@@ -84,6 +84,8 @@ export const dayChartButtonElement = document.getElementById('dayChartButton');
 export const weekChartButtonElement = document.getElementById('weekChartButton');
 export const monthChartButtonElement = document.getElementById('monthChartButton');
 export const seasonChartButtonElement = document.getElementById('seasonChartButton');
+export const importButtonElement = document.getElementById('importButton');
+export const exportButtonElement = document.getElementById('exportButton');
 
 // Checkboxes
 export const ranksCheckboxElement = document.getElementById('ranksCheckbox');

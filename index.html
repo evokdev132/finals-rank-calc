@@ -7,13 +7,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+<div id="exportModalContainer"></div>
+<div id="importModalContainer"></div>
 <div class="header">
     <a href="https://reachthefinals.com/" target="_blank" rel="noopener noreferrer">
         <img src="res/images/logo.png" alt="THE FINALS" class="logo">
     </a>
-    <button id="season4" class="btn btn-season">Season 4</button>
-    <button id="season5" class="btn btn-season">Season 5</button>
+    <select id="dropdown" class="seasons-dropdown" name="options">
+        <option value="option1">Season 4</option>
+        <option value="option2" selected>Season 5</option>
+    </select>
+
     <div class="controls">
         <label><input type="checkbox" id="checkBoxDaily">Daily Gain</label>
         <label><input type="checkbox" id="checkBoxTier">To Next Tier</label>
@@ -23,6 +27,10 @@
     <div class="controls">
         <label><input type="checkbox" id="checkBoxRanks">Show ranks</label>
         <label><input type="checkbox" id="checkBoxTarget">Show target</label>
+    </div>
+    <div class="controls">
+        <button id="importButton" class="btn btn-season">Import</button>
+        <button id="exportButton" class="btn btn-season">Export</button>
     </div>
 </div>
 
@@ -101,6 +109,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pako/2.1.0/pako.min.js"></script>
 <script type="module" src="src/index.js"></script>
 <script type="module" src="src/consts.js"></script>
 <script type="module" src="src/logic.js"></script>
