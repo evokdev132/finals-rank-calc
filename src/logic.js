@@ -40,6 +40,8 @@ export function renderCalculations() {
         pointsToEmerald
     } = getRankData(points);
 
+    pointsInputElement.value = points;
+
     rankAndTierElement.innerText = `Rank: ${rank} | Tier: ${tier}`;
 
 

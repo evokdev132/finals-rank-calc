@@ -10,13 +10,16 @@ import {
     sessionChartButtonElement,
     checkboxes,
     displayCheckboxes,
-    ChartConfigOption
+    ChartConfigOption,
+    exportButtonElement,
+    importButtonElement
 } from "./consts.js";
 import {loadHistory} from "./history.js";
 import {addPoints, renderCalculations, setPoints} from "./logic.js";
 import {GraphClass} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
+import {loadExportModal, loadImportModal} from "./modal.js";
 
 export function initializeDom() {
 
@@ -81,15 +84,17 @@ export function initializeDom() {
     seasonChartButtonElement.addEventListener('click', () => {
         GraphClass.setChartMode(GraphClass.CHART_OPTIONS.season)
     })
+    exportButtonElement.addEventListener('click', loadExportModal);
+    importButtonElement.addEventListener('click', loadImportModal);
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener('DOMContentLoaded', () => {
         loadColumnsState();
         loadDisplayConfigState();
         Object.keys(checkboxes).forEach(id => {
-            document.getElementById(id).addEventListener("change", () => toggleColumn(id));
+            document.getElementById(id).addEventListener('change', () => toggleColumn(id));
         });
         Object.keys(displayCheckboxes).forEach(id => {
-            document.getElementById(id).addEventListener("change", () => toggleDisplayConfig(id));
+            document.getElementById(id).addEventListener('change', () => toggleDisplayConfig(id));
         })
     });
 }
