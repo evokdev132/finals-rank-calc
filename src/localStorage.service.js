@@ -1,18 +1,20 @@
 export class LocalStorageService {
     static S4_CURRENT_POINTS = 'rankPoints';
     static S5_CURRENT_POINTS = 's5RankPoints';
+    static S6_CURRENT_POINTS = 's6RankPoints';
     static DEPRECATED_HISTORY = 'historyLog';
     static S4_CURRENT_HISTORY = 'history';
     static S5_CURRENT_HISTORY = 's5history';
+    static S6_CURRENT_HISTORY = 's6history';
     static CURRENT_GRAPH = 'graphMode';
     static GRAPH_CONFIG = 'graphConfig';
 
     static getCurrentPoints() {
-        return LocalStorageService.#getInt(LocalStorageService.S5_CURRENT_POINTS);
+        return LocalStorageService.#getInt(LocalStorageService.S6_CURRENT_POINTS);
     }
 
     static saveCurrentPoints(points) {
-        LocalStorageService.#setInt(LocalStorageService.S5_CURRENT_POINTS, points);
+        LocalStorageService.#setInt(LocalStorageService.S6_CURRENT_POINTS, points);
     }
 
     static getGraphMode() {
@@ -24,11 +26,11 @@ export class LocalStorageService {
     }
 
     static getHistory() {
-        return LocalStorageService.#getObject(LocalStorageService.S5_CURRENT_HISTORY);
+        return LocalStorageService.#getObject(LocalStorageService.S6_CURRENT_HISTORY);
     }
 
     static saveHistory(history) {
-        LocalStorageService.#setObject(LocalStorageService.S5_CURRENT_HISTORY, history);
+        LocalStorageService.#setObject(LocalStorageService.S6_CURRENT_HISTORY, history);
     }
 
     static getGraphConfig() {
