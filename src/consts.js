@@ -43,7 +43,7 @@ export const supportedSeasons = [4 ,5, 6];
 export const seasonStartDate = {
     4: new Date('2024-09-23T00:00:00Z'),
     5: new Date('2024-12-12T00:00:00Z'),
-    6: new Date('2025-03-10T00:00:00Z')
+    6: new Date('2025-03-20T00:00:00Z')
 };
 export const seasonEndDate = {
     4: new Date('2024-12-11T23:59:59Z'),
