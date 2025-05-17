@@ -11,7 +11,7 @@ export function loadHistory(deleteCallback) {
         historyEntry.className = 'history-entry';
         historyEntry.appendChild(recordText(entry));
         historyEntry.appendChild(recordButton(trueIndex, deleteCallback));
-        historyLogElement.appendChild(...historyEntry);
+        historyLogElement.appendChild(historyEntry);
     });
 }
 
