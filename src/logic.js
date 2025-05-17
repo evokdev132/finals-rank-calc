@@ -93,7 +93,7 @@ export function addPoints(points) {
     renderCalculations();
     LocalStorageService.saveCurrentPoints(newPoints);
     DataService.saveToHistory(points, newPoints);
-    loadHistory();
+    loadHistory(deleteEntry);
 
     renderCalculations();
     GraphClass.updateChart()
@@ -105,6 +105,17 @@ export function setPoints(value) {
     DataService.saveToHistory(0, value);
     renderCalculations();
     GraphClass.updateChart();
+}
+
+export function deleteEntry(index) {
+    const entry = DataService.popHistoryEntry(index);
+    if (entry) {
+        const newPoints = LocalStorageService.getCurrentPoints() - entry.gain;
+        LocalStorageService.saveCurrentPoints(newPoints);
+        renderCalculations();
+        GraphClass.updateChart();
+        loadHistory(deleteEntry);
+    }
 }
 
 

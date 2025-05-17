@@ -15,7 +15,7 @@ import {
     importButtonElement
 } from "./consts.js";
 import {loadHistory} from "./history.js";
-import {addPoints, renderCalculations, setPoints} from "./logic.js";
+import {addPoints, renderCalculations, setPoints, deleteEntry} from "./logic.js";
 import {GraphClass} from "./graph.js";
 import {LocalStorageService} from "./localStorage.service.js";
 import {DataService} from "./data.service.js";
@@ -28,7 +28,7 @@ export function initializeDom() {
     const typingDelay = 1000;
     window.onload = function () {
         DataService.initHistory();
-        loadHistory();
+        loadHistory(deleteEntry);
 
         const savedPoints = LocalStorageService.getCurrentPoints();
         if (savedPoints) {
@@ -154,7 +154,6 @@ function toggleDisplayConfig(id) {
     const checkbox = document.getElementById(id);
     GraphClass.setConfig(displayCheckboxes[id], checkbox.checked)
 }
-
 
 initializeDom();
 loadColumnsState();

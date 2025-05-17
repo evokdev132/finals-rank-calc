@@ -182,6 +182,16 @@ button.s-btn-custom {
     transition: background-color 0.3s;
 }
 
+button.btn-cancel {
+    color: #F1F2F4;
+    background-color: #D21F3C;
+    padding: 0px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
 button.btn-custom:hover {
     background-color: #fda708;
 }
@@ -191,6 +201,10 @@ button.s-btn-custom:hover {
 button.btn-season:hover {
     background-color: #555;
 }
+button.btn-cancel:hover {
+    background-color: #ff3a5b;
+}
+
 .content-container {
     display: flex;
     flex-direction: column;
@@ -252,6 +266,9 @@ button.btn-season:hover {
     margin-bottom: 10px;
     padding: 5px;
     border-bottom: 1px solid #444;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 body {

@@ -45,4 +45,16 @@ export class DataService {
             LocalStorageService.saveCurrentPoints(points);
         }
     }
+
+    static popHistoryEntry(index) {
+        const history = LocalStorageService.getHistory();
+        const entry = history.splice(index, 1)[0];
+        if (entry) {
+            for (let i = index; i < history.length; i++) {
+                history[i].currentPoints -= entry.gain;
+            }
+        }
+        LocalStorageService.saveHistory(history);
+        return entry;
+    }
 }
