@@ -183,14 +183,15 @@ button.s-btn-custom {
 }
 
 button.btn-cancel {
-    color: #F1F2F4;
-    background-color: #D21F3C;
-    padding: 0px 10px;
+    background-color: transparent;
     border: none;
-    border-radius: 5px;
+    color: #F7BB2B;
+    font-size: 20px;
     cursor: pointer;
-    font-size: 1rem;
+    padding: 5px;
+    line-height: 1;
 }
+
 
 button.btn-custom:hover {
     background-color: #fda708;
@@ -202,7 +203,7 @@ button.btn-season:hover {
     background-color: #555;
 }
 button.btn-cancel:hover {
-    background-color: #ff3a5b;
+    color: #fda708;
 }
 
 .content-container {
