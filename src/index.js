@@ -1,5 +1,6 @@
 import {
     pointsInputElement,
+    firstRoundAddButtonElement,
     secondRoundAddButtonElement,
     finalRoundAddButtonElement,
     finalWinAddButtonElement,
@@ -59,6 +60,9 @@ export function initializeDom() {
     });
 
 
+    firstRoundAddButtonElement.addEventListener('click', () => {
+        addPoints(2);
+    })
     secondRoundAddButtonElement.addEventListener('click', () => {
         addPoints(6);
     })

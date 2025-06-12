@@ -5,12 +5,15 @@ import {
     nextRankNameElement,
     nextRankPointsElement,
     emeraldPointsElement,
+    tierFirstRoundElement,
     tierSecondRoundElement,
     tierFinalRoundElement,
     tierFinalVictoryElement,
+    firstRoundElement,
     secondRoundElement,
     finalRoundElement,
     finalVictoryElement,
+    emeraldFirstRoundElement,
     emeraldSecondRoundElement,
     emeraldFinalRoundElement,
     emeraldFinalVictoryElement,
@@ -54,16 +57,19 @@ export function renderCalculations() {
     emeraldPointsElement.innerText = `2400 points`;
 
 
+    tierFirstRoundElement.innerText = `First Round: ${Math.ceil(pointsToNextTier / 2)} times`;
     tierSecondRoundElement.innerText = `Second Round: ${Math.ceil(pointsToNextTier / 6)} times`;
     tierFinalRoundElement.innerText = `Final Round: ${Math.ceil(pointsToNextTier / 14)} times`;
     tierFinalVictoryElement.innerText = `Final Victory: ${Math.ceil(pointsToNextTier / 25)} times`;
 
 
+    firstRoundElement.innerText = `First Round: ${Math.ceil(pointsToNextRank / 2)} times`;
     secondRoundElement.innerText = `Second Round: ${Math.ceil(pointsToNextRank / 6)} times`;
     finalRoundElement.innerText = `Final Round: ${Math.ceil(pointsToNextRank / 14)} times`;
     finalVictoryElement.innerText = `Final Victory: ${Math.ceil(pointsToNextRank / 25)} times`;
 
 
+    emeraldFirstRoundElement.innerText = `First Round: ${Math.ceil(pointsToEmerald / 2)} times`;
     emeraldSecondRoundElement.innerText = `Second Round: ${Math.ceil(pointsToEmerald / 6)} times`;
     emeraldFinalRoundElement.innerText = `Final Round: ${Math.ceil(pointsToEmerald / 14)} times`;
     emeraldFinalVictoryElement.innerText = `Final Victory: ${Math.ceil(pointsToEmerald / 25)} times`;

@@ -38,17 +38,19 @@ export const ranks = [
         maxPoints: maxPoints,
     },
 ];
-export const currentSeason = 6;
-export const supportedSeasons = [4 ,5, 6];
+export const currentSeason = 7;
+export const supportedSeasons = [4 ,5, 6, 7];
 export const seasonStartDate = {
     4: new Date('2024-09-23T00:00:00Z'),
     5: new Date('2024-12-12T00:00:00Z'),
-    6: new Date('2025-03-20T00:00:00Z')
+    6: new Date('2025-03-20T00:00:00Z'),
+    7: new Date('2025-06-12T00:00:00Z')
 };
 export const seasonEndDate = {
     4: new Date('2024-12-11T23:59:59Z'),
     5: new Date('2025-03-19T23:59:59Z'),
     6: new Date('2025-06-11T23:59:59Z'),
+    7: new Date('2025-09-12T23:59:59Z'),
 }
 export const sessionThresholdMS = 120 * 60 * 1000;
 export const maxDeviation = 500;
@@ -63,12 +65,15 @@ export const nextTierPointsElement = document.getElementById('nextTierPoints');
 export const nextRankNameElement = document.getElementById('nextRankName');
 export const nextRankPointsElement = document.getElementById('nextRankPoints');
 export const emeraldPointsElement = document.getElementById('emeraldPoints');
+export const tierFirstRoundElement = document.getElementById('tierFirstRound');
 export const tierSecondRoundElement = document.getElementById('tierSecondRound');
 export const tierFinalRoundElement = document.getElementById('tierFinalRound');
 export const tierFinalVictoryElement = document.getElementById('tierFinalVictory');
+export const firstRoundElement = document.getElementById('firstRound');
 export const secondRoundElement = document.getElementById('secondRound');
 export const finalRoundElement = document.getElementById('finalRound');
 export const finalVictoryElement = document.getElementById('finalVictory');
+export const emeraldFirstRoundElement = document.getElementById('emeraldFirstRound');
 export const emeraldSecondRoundElement = document.getElementById('emeraldSecondRound');
 export const emeraldFinalRoundElement = document.getElementById('emeraldFinalRound');
 export const emeraldFinalVictoryElement = document.getElementById('emeraldFinalVictory');
@@ -78,6 +83,7 @@ export const expectedPointsElement = document.getElementById('expectedPoints');
 export const rankColumnElement = document.getElementById('rankColumn');
 
 // Buttons
+export const firstRoundAddButtonElement = document.getElementById('firstRoundAddButton');
 export const secondRoundAddButtonElement = document.getElementById('secondRoundAddButton');
 export const finalRoundAddButtonElement = document.getElementById('finalRoundAddButton');
 export const finalWinAddButtonElement = document.getElementById('finalWinAddButton');
