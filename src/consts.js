@@ -50,7 +50,7 @@ export const seasonEndDate = {
     4: new Date('2024-12-11T23:59:59Z'),
     5: new Date('2025-03-19T23:59:59Z'),
     6: new Date('2025-06-11T23:59:59Z'),
-    7: new Date('2025-09-12T23:59:59Z'),
+    7: new Date('2025-09-10T23:59:59Z'),
 }
 export const sessionThresholdMS = 120 * 60 * 1000;
 export const maxDeviation = 500;
