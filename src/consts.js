@@ -38,19 +38,21 @@ export const ranks = [
         maxPoints: maxPoints,
     },
 ];
-export const currentSeason = 7;
-export const supportedSeasons = [4 ,5, 6, 7];
+export const currentSeason = 8;
+export const supportedSeasons = [4 ,5, 6, 7, 8];
 export const seasonStartDate = {
     4: new Date('2024-09-23T00:00:00Z'),
     5: new Date('2024-12-12T00:00:00Z'),
     6: new Date('2025-03-20T00:00:00Z'),
-    7: new Date('2025-06-12T00:00:00Z')
+    7: new Date('2025-06-12T00:00:00Z'),
+    8: new Date('2025-09-10T00:00:00Z')
 };
 export const seasonEndDate = {
     4: new Date('2024-12-11T23:59:59Z'),
     5: new Date('2025-03-19T23:59:59Z'),
     6: new Date('2025-06-11T23:59:59Z'),
-    7: new Date('2025-09-10T23:59:59Z'),
+    7: new Date('2025-09-09T23:59:59Z'),
+    8: new Date('2025-12-10T23:59:59Z'),
 }
 export const sessionThresholdMS = 120 * 60 * 1000;
 export const maxDeviation = 500;
